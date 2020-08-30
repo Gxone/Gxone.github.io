@@ -58,5 +58,5 @@ $(document).ready(function() {
  </form>
  ```
 
- 이 때 serch.html 에서는 검색 input 에 css 가 적용되지만 main 페이지의 footer 에는 적용되지 않아 다음과 같이 맨 위에 link 태그로 css 경로를 path를 지정해주어 css 경로를 찾아가도록해 주었다.
+ 이 때 serch.html 에서는 검색 input 에 css 가 적용되지만 main 페이지의 footer 에는 적용되지 않아 다음과 같이 맨 위에 link 태그로 path를 지정해주어 css 경로를 찾아가도록해 주었다.
  ![script](https://user-images.githubusercontent.com/26542094/91661428-f88cb400-eb16-11ea-8dcb-8d16eb4aabaa.png)
