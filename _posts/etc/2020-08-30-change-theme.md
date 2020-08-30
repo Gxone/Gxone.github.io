@@ -17,35 +17,21 @@ categories: etc
 3. ```assets``` 폴더 안에 있는 ```tiquesearch``` 폴더를 내 블로그 디렉토리의 ```assets``` 아래에 복사한다. 
 
 ## Tique Search 환경 설정
-+ ```_config.yml```에 다음 코드를 추가 했다. exclude 의 files 에는 검색에서 제외할 페이지를 추가한다. 
-
-```html
-tipue_search:
-     include:
-         pages: false
-         collections: []
-     exclude:
-         files: [search.html, index.html, tags.html]
-         categories: []
-         tags: []
-```
-
 + ```_includes/head.html``` 파일에 아래의 코드를 추가힌다.   
-
 ```
-<link rel="stylesheet" href="{{ "assets/tipuesearch/css/normalize.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/assets/tipuesearch/css/normalize.css" | relative_url }}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="{{ "/assets/tipuesearch/tipuesearch_content.js" | relative_url }}"></script>
-<link rel="stylesheet" href="{{ "assets/tipuesearch/css/tipuesearch.css" | relative_url }}">
-<script src="{{ "assets/tipuesearch/tipuesearch_set.js" | relative_url }}"></script>
-<script src="{{ "assets/tipuesearch/tipuesearch.min.js" | relative_url }}"></script>
+<link rel="stylesheet" href="{{ "/assets/tipuesearch/css/tipuesearch.css" | relative_url }}">
+<script src="{{ "/assets/tipuesearch/tipuesearch_set.js" | relative_url }}"></script>
+<script src="{{ "/assets/tipuesearch/tipuesearch.min.js" | relative_url }}"></script>
 ```
 
 + 복사한 ```search.html``` 에 다음의 코드를 추가한다.  
 
 ```html
 <form action="{{ page.url | relative_url }}">
-  <div class="tipue_search_left"><img src="{{ 'assets/tipuesearch/search.png' | relative_url }}" class="tipue_search_icon"></div>
+  <div class="tipue_search_left"><img src="{{ '/assets/tipuesearch/search.png' | relative_url }}" class="tipue_search_icon"></div>
   <div class="tipue_search_right"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required></div>
   <div style="clear: both;"></div>
 </form>
@@ -70,3 +56,6 @@ $(document).ready(function() {
    <div style="clear: both;"></div>
  </form>
  ```
+
+ 이 때 serch.html 에서는 검색 input 에 css 가 적용되지만 main 페이지의 footer 에는 적용되지 않아 다음과 같이 맨 위에 link 태그로 css 경로를 path를 지정해주어 css 경로를 찾아가도록해 주었다.
+ ![script](https://user-images.githubusercontent.com/26542094/91661428-f88cb400-eb16-11ea-8dcb-8d16eb4aabaa.png)
