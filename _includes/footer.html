@@ -1,4 +1,12 @@
 <div class="footer">
+  <form action="/search">
+    <div class="tipue_search_left" style="float:left">
+      <img src="/assets/tipuesearch/search.png" class="tipue_search_icon" width="30px" >
+    </div>
+    <div class="tipue_search_right" style="float: right;">
+      <input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required></div>
+    <div style="clear: both;"></div>
+  </form>
   <span class="block">&copy; {{ site.time | date: '%Y' }} {{ site.author_name }}</span>
   <span class="block"><small>&lt;/&gt; Powered by <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://github.com/heiswayi/the-plain">The Plain theme</a>.</small></span>
 </div>
