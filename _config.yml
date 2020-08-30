@@ -6,7 +6,7 @@ logo_url:           https://api.github.com/users/Gxone # Get it from GitHub API:
 
 # Site Settings
 url:                https://gxone.github.io # main url
-baseurl:            ''
+baseurl:            '/blog'
 permalink:          /:title # Post permalink
 timezone:           Asia/Kuala_Lumpur # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 mathjax:            true  # enables support for mathjax - set to 'false' to disable
