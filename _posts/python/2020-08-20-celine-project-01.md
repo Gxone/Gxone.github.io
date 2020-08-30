@@ -34,7 +34,7 @@ cookie_btn.click()
 
 ![shoes](https://user-images.githubusercontent.com/26542094/91657366-54e1da80-eafb-11ea-882f-b053c2f453d2.png)
 
-여기서 item 은 위의 BOOTS, SANDELS .. 와 같은 카테고리이며 이를 기반으로 해당 카테고리에 속하는 신발의 url 을 가져온다. 이 후 각 상품(url) 별로 카테고리 정보도 필요하기 때문에 url은 딕셔너리의 키, 카테고리는 value 에 저장했다. (아래 딕셔너리를 사용한 좀 더 자세한 이유가 있다.)
+여기서 item 은 위의 BOOTS, SANDALS .. 와 같은 카테고리이며 이를 기반으로 해당 카테고리에 속하는 신발의 url 을 가져온다. 이 후 각 상품(url) 별로 카테고리 정보도 필요하기 때문에 url은 딕셔너리의 키, 카테고리는 value 에 저장했다. (아래 딕셔너리를 사용한 좀 더 자세한 이유가 있다.)
 ```py
  driver.get("https://www.celine.com/en-int/celine-women/shoes/" + item)
         # 스크롤 높이 가져온다.
