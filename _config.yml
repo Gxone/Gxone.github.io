@@ -2,7 +2,7 @@
 title:              "The Plain"
 description:        "A minimalist Jekyll theme"
 author_name:        "JIWON KO" # change this to your name
-logo_url:           https://pin.it/4yogRN9 # Get it from GitHub API: https://api.github.com/users/<username>
+logo_url:           assets/logo.jpeg # Get it from GitHub API: https://api.github.com/users/<username>
 
 # Site Settings
 url:                https://gxone.github.io # main url
