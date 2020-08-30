@@ -1,12 +1,17 @@
+<link rel="stylesheet" href="../assets/tipuesearch/css/tipuesearch.css">
+
 <div class="footer">
   <form action="/search">
-    <div class="tipue_search_left" style="float:left">
-      <img src="/assets/tipuesearch/search.png" class="tipue_search_icon" width="30px" >
+    <div style="margin-right: auto; margin-left: auto; text-align: center;">
+      <div class="tipue_search_left" style="display: inline;">
+        <img src="/assets/tipuesearch/search.png" class="tipue_search_icon" style=" vertical-align: text-bottom;" width="30px">
+      </div>
+      <div class="tipue_search_right" style="display: inline;">
+        <input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required ></div>
+      <div style="clear: both;"></div>
     </div>
-    <div class="tipue_search_right" style="float: right;">
-      <input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required></div>
-    <div style="clear: both;"></div>
   </form>
+  <br>
   <span class="block">&copy; {{ site.time | date: '%Y' }} {{ site.author_name }}</span>
   <span class="block"><small>&lt;/&gt; Powered by <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://github.com/heiswayi/the-plain">The Plain theme</a>.</small></span>
 </div>
