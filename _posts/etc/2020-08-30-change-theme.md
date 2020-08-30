@@ -17,8 +17,9 @@ categories: etc
 3. ```assets``` 폴더 안에 있는 ```tiquesearch``` 폴더를 내 블로그 디렉토리의 ```assets``` 아래에 복사한다. 
 
 ## Tique Search 환경 설정
-+ ```_includes/head.html``` 파일에 아래의 코드를 추가힌다.   
-```
++ ```_includes/head.html``` 파일에 아래의 코드를 추가힌다. 
+
+```html
 <link rel="stylesheet" href="{{ "/assets/tipuesearch/css/normalize.css" | relative_url }}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="{{ "/assets/tipuesearch/tipuesearch_content.js" | relative_url }}"></script>
