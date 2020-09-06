@@ -33,7 +33,7 @@ categories: etc
 ```html
 <form action="{{ page.url | relative_url }}">
   <div class="tipue_search_left"><img src="{{ '/assets/tipuesearch/search.png' | relative_url }}" class="tipue_search_icon"></div>
-  <div class="tipue_search_right"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required></div>
+  <div class="tipue_search_right"><input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required></div>
   <div style="clear: both;"></div>
 </form>
 <div id="tipue_search_content"></div>
@@ -57,6 +57,24 @@ $(document).ready(function() {
    <div style="clear: both;"></div>
  </form>
  ```
+ ---
 
+ 참고 사항)  
  이 때 serch.html 에서는 검색 input 에 css 가 적용되지만 main 페이지의 footer 에는 적용되지 않아 다음과 같이 맨 위에 link 태그로 path를 지정해주어 css 파일을 찾아가도록해 주었다.
  ![script](https://user-images.githubusercontent.com/26542094/91661428-f88cb400-eb16-11ea-8dcb-8d16eb4aabaa.png)
+
+css 를 수정하여 아래와 같이 가운데로 오도록 만들었다. 또한 #tique_search_input 의 pattern 을 통해 검색 input 의 패턴을 직접 설정할 수 있다. 현재는 1글자 이상을 입력하도록 해두었다. 
+ ![script](https://user-images.githubusercontent.com/26542094/92305159-822cfd80-efbf-11ea-9c17-c7ef08760bd0.png)
+```html
+  <form action="/search" style="display:flex; justify-content: center;">
+    <div style="display:flex; align-items:center;">
+      <div class="tipue_search_left">
+        <img src="/assets/tipuesearch/search.png" class="tipue_search_icon" style=" vertical-align: text-bottom;" width="30px">
+      </div>
+      <div class="tipue_search_right">
+        <input type="text" name="q" id="tipue_search_input" pattern=".{1,}" title="At least 1 characters" required ></div>
+    </div>
+  </form>
+  ```
+
+  
