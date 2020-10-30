@@ -47,9 +47,9 @@ defaults:
 analytics:
   provider: "google"
   google:
-    tracking_id: "UA-1234567-8"
+    tracking_id: "G-CJX7YE25JJ"
     anonymize_ip: false # default
-    
+
 #  tipue_search:
 #      include:
 #          pages: false
