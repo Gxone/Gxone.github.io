@@ -44,12 +44,6 @@ defaults:
     values:
       layout:       "post"
 
-analytics:
-  provider: "google"
-  google:
-    tracking_id: "G-CJX7YE25JJ"
-    anonymize_ip: false # default
-
 #  tipue_search:
 #      include:
 #          pages: false
