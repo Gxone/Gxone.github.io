@@ -1,0 +1,307 @@
+{% extends 'pages/service/base.html' %}
+{% load staticfiles %}
+{% block metaPageInfo %}
+    <meta name="description" content="그림렌탈 오픈갤러리 작가 등록, 국내 미술작가 원화 작품 렌탈 및 판매 등록" />
+    <meta property="og:title" content="오픈갤러리 | 작가 등록" />
+    <meta property="og:image" content="{% static 'common/img/opengraph_images/opengallery.jpg' %}" />
+    <meta property="og:url" content="https://www.opengallery.co.kr/artist-registry/" />
+    <meta property="og:site_name" content="오픈갤러리" />
+    <meta property="og:description" content="더 나은 미술 생태계를 함께 이끌어갈 작가님들을 기다리고 있습니다." />
+{% endblock %}
+{% block title %}그림렌탈 1위 오픈갤러리 - 작가 등록{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'pages/css/service/artist_registry.css' %}"/>
+{% endblock %}
+
+{% block contentArea %}
+    <div id="contents">
+        <section class="pageHead">
+            <div class="pageHead-bar"></div>
+            <h2 class="pageHead-title">작가공모 지원</h2>
+            <div class="pageHead-description-ar">
+                오픈갤러리는 더 나은 미술 생태계를<br>
+                함께 이끌어 나갈 작가님들을 기다리고 있습니다.
+            </div>
+        </section>
+        <div id="artistRegistry">
+            <div class="ar-row cf">
+                <div class="ar-row-left">모집분야</div>
+                <div class="ar-row-right">평면작품<br>
+                    <span class="ar-gray">- 오픈갤러리는 현재 에디션이 없는 작품만 다루고 있습니다.</span>
+                </div>
+            </div>
+            <div class="ar-row cf">
+                <div class="ar-row-left">지원 대상</div>
+                <div class="ar-row-right">국내에서 활발히 작품 활동 중인 작가<br>
+                    <span class="ar-gray">- 작품이 해외에 있는 경우, 작가 등록이 어려울 수 있습니다.</span>
+                </div>
+            </div>
+            <div class="ar-row cf">
+                <div class="ar-row-left">지원 방법</div>
+                <div class="ar-row-right">지원 결과는 보내주신  포트폴리오 내부 검토 후 개별 연락드리고 있습니다.</div>
+            </div>
+            <div class="ar-row cf" id="ar-row-essential">
+                <div class="ar-row-left">파일 제출시 포함 사항</div>
+                <div class="ar-row-right">
+                    <div class="ar-row-sub">
+                        <span class="ar-row-sub-no">1</span>
+                        <b>작가 정보</b>
+                        <span class="ar-colon">:</span><br class="ar-br-2">
+                        양식 다운로드하여 작성 후 제출
+                        <span class="ar-buttonHolder">
+                            <a href="{% static 'pages/etc/artist_registry_form.docx' %}"
+                               download="오픈갤러리_작가등록양식.docx"
+                               class="ar-button"
+                            >다운로드</a>
+                        </span>
+                    </div>
+                    <div class="ar-row-sub">
+                        <span class="ar-row-sub-no">2</span>
+                        <b>작품 포트폴리오</b>
+                        <span class="ar-colon">:</span><br class="ar-br-2">
+                        작품 이미지, 작품명, 사이즈, 재료, 제작연도, 작가노트 등<br>
+                        - 파일 양식 : 20MB 이하의 PDF 파일
+                    </div>
+                </div>
+            </div>
+            <div class="ar-email">
+                제출 이메일 :<br class="ar-br-3"> curator@opengallery.co.kr
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock %}
+
+
+
+
+
+#contents {
+    padding-bottom: 75px;
+    line-height: 1.5;
+    background-color: #f9f9f9;
+}
+.pageHead {
+    margin-bottom: 38px;
+}
+.pageHead-description-ar {
+    font-size: 28px;
+    line-height: 46px;
+    color: #a48e69;
+    text-decoration: underline;
+    text-decoration-color: #e0d7c8;
+    -webkit-text-decoration-color: #e0d7c8;
+    -moz-text-decoration-color: #e0d7c8;
+}
+
+#artistRegistry {
+    width: 96%;
+    max-width: 1152px;
+    padding: 60px 70px 80px;
+    margin: 0 auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: #fff;
+}
+.ar-row {
+    margin-bottom: 44px;
+}
+.ar-row-left {
+    float: left;
+    width: 32.5%;
+    font-size: 24px;
+    font-weight: bold;
+}
+.ar-row-right {
+    float: left;
+    width: 67.5%;
+    line-height: 30px;
+}
+.ar-gray {
+    color: #999;
+}
+#ar-row-essential {
+    margin-top: 54px;
+}
+.ar-row-sub {
+    position: relative;
+    padding: 2px 0 0 48px;
+}
+.ar-row-sub:first-child {
+    margin-bottom: 46px;
+}
+.ar-row-sub-no {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    line-height: 34px;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+.ar-buttonHolder {
+    display: inline-block;
+    position: relative;
+    width: 120px;
+    height: 30px;
+    margin-left: 35px;
+    vertical-align: top;
+}
+.ar-button {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 50px;
+    border: 3px solid #eee;
+    margin-top: -28px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 50px;
+    text-align: center;
+}
+.ar-button:after {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 22px;
+    margin-left: 7px;
+    vertical-align: text-bottom;
+    background: url(/static/pages/img/service/artist-registry/download_icon.png) no-repeat center;
+    background-size: 18px 22px;
+}
+.ar-email {
+    padding: 26px 0;
+    font-weight: bold;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+.ar-br-1 {
+    display: inline;
+}
+.ar-br-2 {
+    display: none;
+}
+.ar-br-3 {
+    display: none;
+}
+
+
+@media screen and (max-width: 1199px) {
+    #artistRegistry {
+        padding: 44px;
+    }
+    .ar-row-left {
+        width: 26.5%;
+    }
+    .ar-row-right {
+        width: 73.5%;
+    }
+    #ar-row-essential {
+        margin-top: 44px;
+    }
+    #ar-row-essential > .ar-row-left {
+        width: 100%;
+        margin-bottom: 38px;
+    }
+    #ar-row-essential > .ar-row-right {
+        width: 100%;
+    }
+    .ar-buttonHolder {
+        margin-left: 21px;
+    }
+    .ar-br-1 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .pageHead {
+        margin-bottom: 28px;
+    }
+    .pageHead-title {
+        margin-bottom: 7px;
+    }
+    .pageHead-description-ar {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    #artistRegistry {
+        padding: 20px;
+        font-size: 16px;
+    }
+    .ar-row {
+        margin-bottom: 28px;
+    }
+    .ar-row-left {
+        width: 100%;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    .ar-row-right {
+        width: 100%;
+        line-height: 27px;
+    }
+    .ar-gray {
+        font-size: 14px;
+    }
+    #ar-row-essential {
+        margin-top: 28px;
+    }
+    #ar-row-essential > .ar-row-left {
+        margin-bottom: 18px;
+    }
+    .ar-row-sub {
+        padding: 0 0 0 42px;
+    }
+    .ar-row-sub:first-child {
+        margin-bottom: 18px;
+    }
+    .ar-row-sub-no {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+    .ar-buttonHolder {
+        display: block;
+        width: 106px;
+        height: 48px;
+        margin: 12px 0 0 4px;
+    }
+    .ar-button {
+        top: 0;
+        height: 42px;
+        margin-top: 0;
+        font-size: 14px;
+        line-height: 42px;
+    }
+    .ar-button:after {
+        margin-left: 4px;
+    }
+    .ar-email {
+        padding: 16px 0 16px 20px;
+        text-align: left;
+    }
+    .ar-colon {
+        display: none;
+    }
+    .ar-br-2 {
+        display: inline;
+    }
+    .ar-br-3 {
+        display: inline;
+    }
+}
