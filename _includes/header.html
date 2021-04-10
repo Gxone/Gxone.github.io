@@ -14,3 +14,18 @@
 	<span class="logo-prompt code">{{ prompt }}</span>
 
 </aside>
+
+<!-- 카테고리 -->
+<!-- <ul style="list-style: none; text-align: center;">
+    
+	{% assign pages_list = site.pages %}
+	{% for node in pages_list %}
+	  {% if node.title != null %}
+		{% if node.layout == "category" %}
+		  <li style="text-decoration: none; text-align: center; display: inline; "><a class="category-link {% if page.url == node.url %} active{% endif %}"
+		  href="{{ site.baseurl }}{{ node.url }}" style="text-decoration: none; ">{{ node.title }}</a></li>
+		{% endif %}
+	  {% endif %}
+	{% endfor %}
+	
+</ul> -->
