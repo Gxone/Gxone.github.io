@@ -1,54 +1,50 @@
-# Site Info
-title:              "Gxone"
-description:        "A minimalist Jekyll theme"
-author_name:        "Jiwon KO" # change this to your name
-logo_url:           /assets/logo.jpeg # Get it from GitHub API: https://api.github.com/users/<username>
+# Site settings
+title:          Tale
+description:    "Minimal Jekyll theme for storytellers"
+baseurl:        ""
+url:            "https://gxone.github.io"
 
-# Site Settings
-url:                https://gxone.github.io # main url
-baseurl:            ''
-permalink:          /:title # Post permalink
-timezone:           Asia/Seoul # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-mathjax:            true  # enables support for mathjax - set to 'false' to disable
+# Google Analytics
+google_analytics: UA—XXXXXXXX-X
 
-# Site Build
-highlighter:        rouge
-markdown:           kramdown
-kramdown:
-    input:          GFM
+# Author
+author:
+  name:         Chester How
+  url:          https://chester.how
+  email:        chesterhow@gmail.com
+
+# Build settings
+markdown:       kramdown
+include:
+  - _pages
+
+# Assets
 sass:
-    style:          :compressed
+  sass_dir:     _sass
+  style:        compressed
 
-# Other Params
-include:            [ "robots.txt" ]
-exclude:            [ "LICENSE", "README.md", "CNAME", "vendor", "Gemfile", "script" ]
+# Gems
 plugins:
-  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
+  # - jemoji #Uncomment this to allow emoji in your post
 
+# Permalinks
+permalink:      /:year-:month-:day/:title
+paginate:       5
 
+# Excludes
+exclude: [ Gemfile, Gemfile.lock, tale.gemspec ]
 
-defaults:
-  -
-    scope:
-      path:         ""
-    values:
-      layout:       "null"
-  -
-    scope:
-      type:         "pages"
-    values:
-      layout:       "page"
-  -
-    scope:
-      type:         "posts"
-    values:
-      layout:       "post"
+# Disqus (Set to your disqus id)
+disqus:         jekyll-tale
 
-#  tipue_search:
-#      include:
-#          pages: false
-#          collections: []
-#      exclude:
-#          files: [search.html]
-#          categories: []
-#          tags: []
+remote_theme: chesterhow/tale
+
+permalink:    /:year-:month-:day/:title
+paginate:     5
+
+plugins:
+  - jekyll-paginate
+  - jekyll-remote-theme
