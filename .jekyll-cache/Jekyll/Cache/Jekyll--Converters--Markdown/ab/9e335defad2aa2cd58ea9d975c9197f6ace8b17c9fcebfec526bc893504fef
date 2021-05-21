@@ -1,0 +1,24 @@
+I"b<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
+<span class="nd">@ControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomizedResponseEntityExceptionHandler</span> <span class="kd">extends</span> <span class="nc">ResponseEntityExceptionHandler</span> <span class="o">{</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">Exception</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">&gt;</span> <span class="nf">handleAllExceptions</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">ex</span><span class="o">,</span> <span class="nc">WebRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ExceptionResponse</span> <span class="n">exceptionResponse</span> <span class="o">=</span>
+                <span class="k">new</span> <span class="nf">ExceptionResponse</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">(),</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">request</span><span class="o">.</span><span class="na">getDescription</span><span class="o">(</span><span class="kc">false</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ResponseEntity</span><span class="o">(</span><span class="n">exceptionResponse</span><span class="o">,</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">UserNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">&gt;</span> <span class="nf">handleUserNotFoundException</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">ex</span><span class="o">,</span> <span class="nc">WebRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ExceptionResponse</span> <span class="n">exceptionResponse</span> <span class="o">=</span>
+                <span class="k">new</span> <span class="nf">ExceptionResponse</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">(),</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">request</span><span class="o">.</span><span class="na">getDescription</span><span class="o">(</span><span class="kc">false</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ResponseEntity</span><span class="o">(</span><span class="n">exceptionResponse</span><span class="o">,</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+<p>참고 자료: Spring Boot를 이용한 RESTful Web Services 개발</p>
+:ET

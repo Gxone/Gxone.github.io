@@ -1,0 +1,7 @@
+I"�<h2 id="오전">오전</h2>
+<h3 id="inner-join-에서의-on-vs-where">INNER JOIN 에서의 ON vs WHERE</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ON</code>: JOIN 을 하기 전에 필터링을 한다. 따라서 ON 조건으로 필터링이 된 레코드들 간 JOIN 이 이루어진다.</li>
+  <li><code class="language-plaintext highlighter-rouge">WHERE</code>: JOIN 을 한 후 필터링을 한다. JOIN 한 결과에서 WHERE 조건절로 필터링이 이뤄진다.</li>
+</ul>
+:ET

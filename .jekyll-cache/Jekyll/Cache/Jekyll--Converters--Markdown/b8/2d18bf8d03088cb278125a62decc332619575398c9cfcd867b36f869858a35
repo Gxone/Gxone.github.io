@@ -1,0 +1,36 @@
+I"z<h2 id="path-variable">Path Variable</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// UserController.java</span>
+    <span class="c1">// GET /users/1 or /users/10 -&gt; String</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users/{id}"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Resource</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">retrieveUser</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">UserNotFoundException</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"ID[%s] not found"</span><span class="o">,</span> <span class="n">id</span><span class="o">));</span>
+        <span class="o">}</span>
+
+        <span class="c1">// HATEOAS</span>
+        <span class="nc">Resource</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span>  <span class="n">resource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Resource</span><span class="o">&lt;&gt;(</span><span class="n">user</span><span class="o">);</span>
+        <span class="nc">ControllerLinkBuilder</span> <span class="n">linkTo</span> <span class="o">=</span> <span class="n">linkTo</span><span class="o">(</span><span class="n">methodOn</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">()).</span><span class="na">retrieveAllUsers</span><span class="o">());</span>
+        <span class="n">resource</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">.</span><span class="na">withRel</span><span class="o">(</span><span class="s">"all-users"</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="n">resource</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// UserDaoService.jave</span>
+   <span class="kd">public</span> <span class="nc">User</span> <span class="nf">save</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">findOne</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">users</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+<p>id 값을 <code class="language-plaintext highlighter-rouge">Service</code>의 <code class="language-plaintext highlighter-rouge">findOne</code>으로 넘겨주면 서비스에서 해당하는 id 값의 데이터를 반환시킨다.</p>
+
+<hr />
+<p>참고 자료: Spring Boot를 이용한 RESTful Web Services 개발</p>
+:ET

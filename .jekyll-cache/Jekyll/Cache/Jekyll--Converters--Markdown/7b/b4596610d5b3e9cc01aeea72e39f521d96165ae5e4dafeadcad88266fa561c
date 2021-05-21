@@ -1,0 +1,8 @@
+I"<h2 id="path-variable">Path Variable</h2>
+<p>```java
+// UserController.java
+    // GET /users/1 or /users/10 -&gt; String
+    @GetMapping(“/users/{id}”)
+    public Resource<User> retrieveUser(@PathVariable int id) {
+        User user = service.findOne(id);</User></p>
+:ET

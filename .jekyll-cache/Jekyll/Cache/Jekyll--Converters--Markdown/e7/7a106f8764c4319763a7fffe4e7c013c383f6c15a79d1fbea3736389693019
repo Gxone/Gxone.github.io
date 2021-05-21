@@ -1,0 +1,36 @@
+I"<h2 id="generic">Generic</h2>
+<p>오랜만에 다시 자바를 공부하면서 파이썬에서 사용하지 않았던 개념들이 다시 등장에 복습할 겸 공부하고 정리하고 있다 ✍🏻. 파이썬은 동적 타이핑 언어이기 때문에 제네릭을 사용할 필요가 없지만 (타입을 명시하는 방법은 있다!) 자바에서는 <b>제네릭을 사용히여 컴파일 시 구체적인 타입을 결정</b>하도록 한다. 실행 중 타입 에어가 나는 것보다 컴파일 시 <b>사전에 타입을 체크하여 에러를 방지하도록 해주는 이점</b>이 있다. 또한 타입 변환을 많이 할 시 application 의 성능이 떨어지게 되는데 이를 방지한다. 
+예를 들면,</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</code></pre></div></div>
+<p>위와 같은 코드를 아래처럼 제네릭을 적용하여준다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</code></pre></div></div>
+<p>이렇게 List 객체 생성 시, String 객체를 저장하겠다고 선언해줄 경우 수정 전 코드에서 발생하는 두 번의 강제적인 형변환을 방지해줄 수 있다.</p>
+
+<h2 id="제네릭-타입">제네릭 타입</h2>
+<p>제네릭 타입이란 <b>타입을 파라미터로 가지는 클래스와 인터페이스</b>를 말한다.<br />
+선언 시 이름 뒤에 <code class="language-plaintext highlighter-rouge">&lt;타입 파라미터&gt;</code> 가 위치한다. 
+클래스를 설계할 때 타입 파라미터로 설계를 해두고, 실제 사용할 때 구체적인 클래스를 지정해주어 컴파일러가 클래스를 재구성해준다. 다른 타입이 들어올 경우 컴파일 에러가 발생한다.</p>
+
+<h2 id="제네릭의-선언-및-생성">제네릭의 선언 및 생성</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyArray</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="no">T</span> <span class="n">element</span><span class="o">;</span>
+    <span class="kt">void</span> <span class="nf">setElement</span><span class="o">(</span><span class="no">T</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">element</span> <span class="o">=</span> <span class="n">element</span><span class="o">;</span> <span class="o">}</span>
+    <span class="no">T</span> <span class="nf">getElement</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">element</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>타입 변수에는 T 이외의 어떠한 문자를 사용해도 상관없으며 여러 개의 타입 변수는 쉼표로 구분해 명시할 수 있다. 위와 같이 정의된 제네릭 클래스를 생성할 떄에는 타입 변수 자리에 실제 타입을 명시해줘야한다!</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MyArray</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">myArr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyArray</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;();</span>
+<span class="nc">MyArray</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">myArr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyArray</span><span class="o">&lt;&gt;();</span> <span class="c1">// Java SE 7부터 가능함.</span>
+</code></pre></div></div>
+
+<hr />
+<p>참고 자료: https://ict-nroo.tistory.com/42
+http://www.tcpschool.com/java/java_generic_concept</p>
+:ET

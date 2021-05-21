@@ -1,0 +1,4 @@
+I"�<h2 id="django-shell에-접속하여-import">Django Shell에 접속하여 import</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python manage.py shell
+</code></pre></div></div>
+:ET

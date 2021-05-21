@@ -1,0 +1,115 @@
+I"�A<h2 id="map">map</h2>
+<p><code class="language-plaintext highlighter-rouge">map()</code> 함수는 반복 가능한 <code class="language-plaintext highlighter-rouge">iterable</code> 객체를 받아서 각 요소에 함수를 적용해주는 함수이다.</p>
+
+<blockquote>
+  <p>map(적용시킬 함수, 적용할 요소들)</p>
+</blockquote>
+
+<h2 id="filter">filter</h2>
+<p><code class="language-plaintext highlighter-rouge">filter()</code> 함수는 조건을 걸어 해당하는 요소만 <code class="language-plaintext highlighter-rouge">iterator</code> 객체를 만들어 리턴한다.</p>
+
+<blockquote>
+  <p>filter(적용시킬 함수, 적용할 요소들)</p>
+</blockquote>
+
+<p>함수를 재사용할 필요가 없다면 보다 간결하게 <code class="language-plaintext highlighter-rouge">lambda</code> 를 사용하는 것이 좋다.</p>
+
+<p><br /></p>
+
+<h2 id="iterators">iterators</h2>
+<p>이터레이터는 반복되며 모든 값을 순차적으로 꺼내올 수 있는 객체이다. (: <code class="language-plaintext highlighter-rouge">__iter__()</code>와 <code class="language-plaintext highlighter-rouge">__next__()</code> 메서드로 구성된 이터레이터 프로토콜을 구현한 객체)</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">L</span><span class="o">=</span><span class="p">[</span><span class="s">'__add__'</span><span class="p">,</span> <span class="s">'__class__'</span><span class="p">,</span> <span class="s">'__contains__'</span><span class="p">,</span> <span class="s">'__delattr__'</span><span class="p">,</span> <span class="s">'__delitem__'</span><span class="p">,</span>
+ <span class="s">'__dir__'</span><span class="p">,</span> <span class="s">'__doc__'</span><span class="p">,</span> <span class="s">'__eq__'</span><span class="p">,</span> <span class="s">'__format__'</span><span class="p">,</span> <span class="s">'__ge__'</span><span class="p">,</span> <span class="s">'__getattribute__'</span><span class="p">,</span>
+ <span class="s">'__getitem__'</span><span class="p">,</span> <span class="s">'__gt__'</span><span class="p">,</span> <span class="s">'__hash__'</span><span class="p">,</span> <span class="s">'__iadd__'</span><span class="p">,</span> <span class="s">'__imul__'</span><span class="p">,</span> <span class="s">'__init__'</span><span class="p">,</span>
+ <span class="s">'__init_subclass__'</span><span class="p">,</span> <span class="s">'__iter__'</span><span class="p">,</span> <span class="s">'__le__'</span><span class="p">,</span> <span class="s">'__len__'</span><span class="p">,</span> <span class="s">'__lt__'</span><span class="p">,</span> <span class="s">'__mul__'</span><span class="p">,</span>
+ <span class="s">'__ne__'</span><span class="p">,</span> <span class="s">'__new__'</span><span class="p">,</span> <span class="s">'__reduce__'</span><span class="p">,</span> <span class="s">'__reduce_ex__'</span><span class="p">,</span> <span class="s">'__repr__'</span><span class="p">,</span> <span class="s">'__reversed__'</span><span class="p">,</span>
+ <span class="s">'__rmul__'</span><span class="p">,</span> <span class="s">'__setattr__'</span><span class="p">,</span> <span class="s">'__setitem__'</span><span class="p">,</span> <span class="s">'__sizeof__'</span><span class="p">,</span> <span class="s">'__str__'</span><span class="p">,</span>
+ <span class="s">'__subclasshook__'</span><span class="p">,</span> <span class="s">'append'</span><span class="p">,</span> <span class="s">'clear'</span><span class="p">,</span> <span class="s">'copy'</span><span class="p">,</span> <span class="s">'count'</span><span class="p">,</span> <span class="s">'extend'</span><span class="p">,</span>
+ <span class="s">'index'</span><span class="p">,</span> <span class="s">'insert'</span><span class="p">,</span> <span class="s">'pop'</span><span class="p">,</span> <span class="s">'remove'</span><span class="p">,</span> <span class="s">'reverse'</span><span class="p">,</span> <span class="s">'sort'</span><span class="p">]</span>
+</code></pre></div></div>
+<p>객체가 반복 가능한 객체인지 확인해보는 방법은 <code class="language-plaintext highlighter-rouge">dir</code>로 호출하여 <code class="language-plaintext highlighter-rouge">__iter__</code> 함수가 있는지 확인해볼 수 있다.
+이때 이터레이터를 변수에 저장 후에 <code class="language-plaintext highlighter-rouge">__next__</code> 함수를 호출하면 값을 하나씩 꺼내올 수 있고 리스트의 인덱스를 벗어날 경우
+<code class="language-plaintext highlighter-rouge">StopIteration</code>이 발생한다.</p>
+
+<p>파이썬 기본 함수중에는 <code class="language-plaintext highlighter-rouge">__iter__</code> 함수와 <code class="language-plaintext highlighter-rouge">__next__</code>  함수를 쉽게 사용할 수 있도록 도와주는 <code class="language-plaintext highlighter-rouge">iter</code>와 <code class="language-plaintext highlighter-rouge">next</code>
+가 있다. 아래와 같이 for 문을 사용하여 제곱한 것을 <code class="language-plaintext highlighter-rouge">iter</code> 와 <code class="language-plaintext highlighter-rouge">next</code> 를 사용하여 while 문으로 구현할 수 있다.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+	<span class="k">print</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">' '</span><span class="p">)</span>
+
+<span class="c1"># ------------------------------ #
+</span>
+<span class="n">I</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">StopIteration</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">print</span><span class="p">(</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">" "</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="generators">generators</h2>
+<p><code class="language-plaintext highlighter-rouge">Generator</code> 함수은 <code class="language-plaintext highlighter-rouge">Iterator</code>를 생성해주는 함수라고 볼 수 있다. 
+제네레이터 표현식은 리스트 컴프리헨션 문법과 비슷하지만 대괄호가 아닌 괄호를 사용하여 만든다.</p>
+<h3 id="yield">yield</h3>
+
+<h3 id="lazy-evaluation">Lazy Evaluation</h3>
+<p>lazy Evaluation 은 실제로 쓰일 때까지 그 값의 계산을 뒤로 미루는 동작 방식이다.</p>
+<h4 id="장점">장점</h4>
+<h4 id="리스트-컴프리헨션과-차이점">리스트 컴프리헨션과 차이점</h4>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="lambda">Lambda</h2>
+<blockquote>
+  <p>Lambda 는 인라인 콜백 함수를 만들거나 함수 안에서 복잡한 처리를 할 수 없을 때 유용하다. 
+콜백 함수란 어떤 이벤트가 발생했을 때 호출되는 함수인데 콜백 함수가 여러 블록으로 구성된 실행문이 아니고 다른 컴포넌트에서 사용되지 않는다면
+해당 컴포넌트만을 위한 람다 표현식이 적절할 것이다.</p>
+</blockquote>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">types</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">+</span><span class="n">z</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">function</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1032bdb90</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">'function'</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="n">types</span><span class="p">.</span><span class="n">LambdaType</span><span class="p">)</span>
+<span class="bp">True</span>
+</code></pre></div></div>
+<p>아래와 같이 두 개의 if 문으로 비밀번호의 길이와 대문자가 포함되어있는지 유효성을 검사하는 함수가 있다.</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">check_password</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">password</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">'SHORT_PASSWORD'</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">password</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'NO_CAPITAL_LETTER_PASSWORD'</span>
+
+    <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+<p>위 함수를 람다 표현식을 이용해 다음과 같이 작성할 수 있다.<br />
+리스트에 두 개의 람다 표현식으로 작성할 수 있고 print 결과는 주석과 같이 출력된다.</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lambdas</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">'SHORT_PASSWORD'</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="bp">None</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">'NO_CAPITAL_LETTER_PASSWORD'</span> <span class="k">if</span> <span class="n">x</span><span class="p">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">else</span> <span class="bp">None</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">check_password_using_lambda</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">lambdas</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">password</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">print</span><span class="p">(</span> <span class="n">check_password_using_lambda</span><span class="p">(</span><span class="s">'123'</span><span class="p">)</span> <span class="p">)</span>            <span class="c1"># SHORT_PASSWORD
+</span><span class="k">print</span><span class="p">(</span> <span class="n">check_password_using_lambda</span><span class="p">(</span><span class="s">'12356789f'</span><span class="p">)</span> <span class="p">)</span>      <span class="c1"># NO_CAPITAL_LETTER_PASSWORD
+</span><span class="k">print</span><span class="p">(</span> <span class="n">check_password_using_lambda</span><span class="p">(</span><span class="s">'123456789fF'</span><span class="p">)</span> <span class="p">)</span>    <span class="c1"># True
+</span></code></pre></div></div>
+
+<h3 id="types">Types</h3>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+<span class="p">[</span><span class="s">'BooleanType'</span><span class="p">,</span> <span class="s">'BufferType'</span><span class="p">,</span> <span class="s">'BuiltinFunctionType'</span><span class="p">,</span> <span class="s">'BuiltinMethodType'</span><span class="p">,</span> <span class="s">'ClassType'</span><span class="p">,</span> <span class="s">'CodeType'</span><span class="p">,</span> <span class="s">'ComplexType'</span><span class="p">,</span> <span class="s">'DictProxyType'</span><span class="p">,</span> <span class="s">'DictType'</span><span class="p">,</span> <span class="s">'DictionaryType'</span><span class="p">,</span> <span class="s">'EllipsisType'</span><span class="p">,</span> <span class="s">'FileType'</span><span class="p">,</span> <span class="s">'FloatType'</span><span class="p">,</span> <span class="s">'FrameType'</span><span class="p">,</span> <span class="s">'FunctionType'</span><span class="p">,</span> <span class="s">'GeneratorType'</span><span class="p">,</span> <span class="s">'GetSetDescriptorType'</span><span class="p">,</span> <span class="s">'InstanceType'</span><span class="p">,</span> <span class="s">'IntType'</span><span class="p">,</span> <span class="s">'LambdaType'</span><span class="p">,</span> <span class="s">'ListType'</span><span class="p">,</span> <span class="s">'LongType'</span><span class="p">,</span> <span class="s">'MemberDescriptorType'</span><span class="p">,</span> <span class="s">'MethodType'</span><span class="p">,</span> <span class="s">'ModuleType'</span><span class="p">,</span> <span class="s">'NoneType'</span><span class="p">,</span> <span class="s">'NotImplementedType'</span><span class="p">,</span> <span class="s">'ObjectType'</span><span class="p">,</span> <span class="s">'SliceType'</span><span class="p">,</span> <span class="s">'StringType'</span><span class="p">,</span> <span class="s">'StringTypes'</span><span class="p">,</span> <span class="s">'TracebackType'</span><span class="p">,</span> <span class="s">'TupleType'</span><span class="p">,</span> <span class="s">'TypeType'</span><span class="p">,</span> <span class="s">'UnboundMethodType'</span><span class="p">,</span> <span class="s">'UnicodeType'</span><span class="p">,</span> <span class="s">'XRangeType'</span><span class="p">,</span> <span class="s">'__all__'</span><span class="p">,</span> <span class="s">'__builtins__'</span><span class="p">,</span> <span class="s">'__doc__'</span><span class="p">,</span> <span class="s">'__file__'</span><span class="p">,</span> <span class="s">'__name__'</span><span class="p">,</span> <span class="s">'__package__'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p><a href="https://docs.python.org/ko/3.7/library/types.html#standard-interpreter-types">python 공식 문서</a></p>
+
+:ET

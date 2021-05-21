@@ -1,0 +1,7 @@
+I"�<p>```java
+// UserController.java
+    @PostMapping(“/users”)
+    public void createUser(@RequestBody User user) { // [1]
+        User savedUser = service.save(user); // [2]
+    }</p>
+:ET

@@ -1,0 +1,14 @@
+I"�<h2 id="view">View</h2>
+<p>뷰는 <code class="language-plaintext highlighter-rouge">SELECT</code> 명령을 객체로서 이름을 붙여 관리할 수 있도록 한 것이 뷰이다. 뷰를 참조하면 그에 정의된 <code class="language-plaintext highlighter-rouge">SELECT</code> 명령의 실행결과를 테이블처럼 사용할 수 있는데 자주 사용하거나 복잡한 <code class="language-plaintext highlighter-rouge">SELECT</code> 명령을 뷰로 만들어 편리하게 사용 가능하다.
+뷰는 <code class="language-plaintext highlighter-rouge">SELECT</code> 이외의 명령에도 조건이 맞으면 사용가능하지만 <code class="language-plaintext highlighter-rouge">SELECT</code> 명령에만 사용하는 것을 권장한다고 한다.</p>
+
+<h3 id="view-생성과-삭제">View 생성과 삭제</h3>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="err">뷰명</span> <span class="p">(</span><span class="err">열명</span><span class="mi">1</span><span class="p">,</span> <span class="err">열명</span><span class="mi">2</span><span class="p">,</span> <span class="p">...)</span> <span class="k">AS</span> <span class="k">SELECT</span> <span class="err">명령</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">AS</code> 키워드는 별명을 붙일 때 사용하는  <code class="language-plaintext highlighter-rouge">AS</code> 와 달리 생략 불가능하다.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DROP</span> <span class="k">VIEW</span> <span class="err">뷰명</span>
+</code></pre></div></div>
+
+<h3 id="view-의-단점">View 의 단점</h3>
+<p>뷰를 참조하면 뷰에 등록되어있는 <code class="language-plaintext highlighter-rouge">SELECT</code> 명령이 실행되어 CPU 자원을 사용한다. 검색뿐만 아니라 <code class="language-plaintext highlighter-rouge">ORDER BY</code> 나 <code class="language-plaintext highlighter-rouge">GROUP BY</code> 와 같은 처리 또한 CPU 자원을 사용하게 된다.</p>
+:ET

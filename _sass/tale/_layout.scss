@@ -9,13 +9,13 @@ footer,
 .nav-container {
   display: block;
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 750px;
   width: 80%;
 }
 
 .nav {
-  box-shadow: 0 2px 2px -2px $shadow-color;
   overflow: auto;
+  padding: 2rem;
 
   &-container {
     margin: 1rem auto;
@@ -59,10 +59,23 @@ footer,
       opacity: 1;
     }
   }
+  
+  .active {
+    padding-bottom: 6px;
+    border-bottom: 2px solid grey;
+    font-weight: 700;
+    color: grey;
+  }
+
+  .normal {
+      font-weight: 500;
+      border-style: none;
+      padding-bottom: 0;
+  }
 
   a {
     color: $default-color;
-    font-family: $sans-serif;
+    font-family: $serif-primary;
   }
 }
 

@@ -1,0 +1,25 @@
+I"
+<p>쿼리에서 파라미터로 메인 메뉴의 id 를 받고 싶은데 pymysql 을 사용한 코드를 참고해서 작성했는데 계속 오류가 생겨서 구글링해보니 스택오버플로우에 같은 문제에 대한 질문이 있었고 참고하여 해결!</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">first_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_category_id</span><span class="p">):</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">text</span><span class="p">(</span><span class="s">"""
+            SELECT id, first_category_name
+            FROM first_categories
+            WHERE main_category_id = %s
+        """</span><span class="p">),</span> <span class="n">main_category_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">row</span>
+</code></pre></div></div>
+<p>위의 코드를 아래와 같이 수정하였다.
+sqlalchmy 의 <code class="language-plaintext highlighter-rouge">excute</code> 메소드를 사용할 경우 아래와 같이 params 를 설정해야하나보다.</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">first_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_category_id</span><span class="p">):</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">text</span><span class="p">(</span><span class="s">"""
+            SELECT id, first_category_name
+            FROM first_categories
+            WHERE main_category_id = :main_id
+        """</span><span class="p">),</span> <span class="p">{</span><span class="s">'main_id'</span><span class="p">:</span><span class="n">main_category_id</span><span class="p">}).</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">row</span>
+</code></pre></div></div>
+
+<hr />
+<p>참고 자료:
+https://stackoverflow.com/questions/11579273/sqlalchemy-0-7-8-raw-string-queries-issue-with-params</p>
+:ET

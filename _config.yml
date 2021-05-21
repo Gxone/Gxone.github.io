@@ -9,9 +9,9 @@ google_analytics: UA—XXXXXXXX-X
 
 # Author
 author:
-  name:         Chester How
-  url:          https://chester.how
-  email:        chesterhow@gmail.com
+  name:         Jiwon Ko
+  url:          https://gxone.github.io
+  email:        rhwldnjs1226@gmail.com
 
 # Build settings
 markdown:       kramdown
@@ -30,10 +30,6 @@ plugins:
   - jekyll-seo-tag
   # - jemoji #Uncomment this to allow emoji in your post
 
-# Permalinks
-permalink:      /:year-:month-:day/:title
-paginate:       5
-
 # Excludes
 exclude: [ Gemfile, Gemfile.lock, tale.gemspec ]
 
@@ -42,9 +38,14 @@ disqus:         jekyll-tale
 
 remote_theme: chesterhow/tale
 
+# Permalinks
 permalink:    /:year-:month-:day/:title
-paginate:     5
+paginate:     7
 
 plugins:
   - jekyll-paginate
   - jekyll-remote-theme
+
+# Collection
+collections:
+  - collections
