@@ -22,6 +22,7 @@
   }
 
   &-time {
+    display: block;
     color: $default-tint;
     font-family: $serif-primary;
     letter-spacing: .5px;
@@ -30,7 +31,7 @@
   &-tag {
     color: #3CDF95;
     font-family: $serif-primary;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
   }
 

@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
   {% include head.html %}
-
   <body>
-
     {% include navigation.html %}
-
+    {% if page.blog-title %}
+      {% include page-header.html %}
+    {% endif %}
     <main>
       {{ content }}
     </main>
-
     {% include footer.html %}
   </body>
 </html>

@@ -1,3 +1,0 @@
-I"<h2 id="map">map</h2>
-<p><code class="language-plaintext highlighter-rouge">map()</code> 함수는 반복 가능한 <code class="language-plaintext highlighter-rouge">iterable</code> 객체를 받아서 각 요소에 함수를 적용해주는 함수이다.</p>
-:ET

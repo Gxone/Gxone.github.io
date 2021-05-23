@@ -1,5 +1,0 @@
-I"ê<p>```java
-@RestController
-@ControllerAdvice
-public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {</p>
-:ET

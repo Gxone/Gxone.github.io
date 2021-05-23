@@ -1,17 +1,9 @@
 ---
 layout: default
-title: "Blog"
+blog-title: "Blog"
+description: "TECHS"
 permalink: /blog/
-description: 
 ---
-<div class="blog-header loding-animation">
-    <div class="blog-header-title">
-        {{ page.title }}
-    </div>
-    <div class="blog-header-des">
-        {{ page.description }}
-    </div>    
-</div>
 <div class="catalogue">
     {% assign sorted = site.pages | sort: 'order' | reverse %}
     {% for page in sorted %}

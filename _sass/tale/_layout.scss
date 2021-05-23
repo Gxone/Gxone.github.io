@@ -21,19 +21,7 @@ footer,
     margin: 1rem auto;
     position: relative;
     text-align: center;
-  }
 
-  &-title {
-    @include transition(all .2s ease-out);
-    color: $default-color;
-    display: inline-block;
-    margin: 0;
-    padding-right: .2rem;
-
-    &:hover,
-    &:focus {
-      opacity: .6;
-    }
   }
 
   ul {
@@ -44,41 +32,42 @@ footer,
   }
 
   li {
-    @include transition(all .2s ease-out);
+    font-family: $serif-primary;
     color: $default-color;
     display: inline-block;
-    opacity: .6;
     padding: 0 2rem 0 0;
 
     &:last-child {
       padding-right: 0;
     }
 
-    &:hover,
-    &:focus {
-      opacity: 1;
+    @keyframes fade {
+      from {
+          opacity: 1;
+      }
+      to {
+          opacity: 0.5;
+      }
+    }
+
+    a {
+      &:hover,
+      &:focus {
+        animation-name: fade;
+        animation-duration: 0.3s;
+        animation-timing-function: ease-in-out;
+        opacity: 0.5;
+      }
+    }
+    
+    .active {
+      padding-bottom: 6px;
+      font-weight: 700;
+      color: black;
     }
   }
-  
-  .active {
-    padding-bottom: 6px;
-    border-bottom: 2px solid grey;
-    font-weight: 700;
-    color: grey;
-  }
-
-  .normal {
-      font-weight: 500;
-      border-style: none;
-      padding-bottom: 0;
-  }
-
-  a {
-    color: $default-color;
-    font-family: $serif-primary;
-  }
 }
-
+  
 @media (min-width: 600px) {
   .nav {
     &-container {
