@@ -1,0 +1,14 @@
+I"b<p><img src="https://user-images.githubusercontent.com/26542094/93972042-7f4a4f00-fdac-11ea-992b-371734eb42bc.png" alt="error" />
+위와 같은 에러가 뜰 때는 fetchone() 을 해주어 하나만 fetch 하도록 !</p>
+
+<p>fetch 한 결과의 타입을 프린트 해보면 -&gt; <code class="language-plaintext highlighter-rouge">&lt;class 'sqlalchemy.engine.result.RowProxy'&gt;</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/26542094/94017625-9f006800-fdea-11ea-9132-2d1093502807.png" alt="result" /></p>
+
+<hr />
+
+<p>내일 할 일: <br />
+sqlchemy 에서 키 값으로 string 형태 받을 수 있는 지 확인<br />
+sql 스키마 폴더 생성 후 버전 관리, 상품 전체 페이지 레이아웃 기준 질문<br />
+p_info 상품 정보 데이터 전달할 때 가장 마지막으로 수정된 데이터만 출력되도록 수정</p>
+:ET

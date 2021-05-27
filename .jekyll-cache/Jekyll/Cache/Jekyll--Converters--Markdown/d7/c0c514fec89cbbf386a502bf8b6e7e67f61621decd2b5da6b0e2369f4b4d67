@@ -1,0 +1,47 @@
+I"j<p>String 형인 str 인자에서 중복되지 않은 알파벳으로 이루어진 제일 긴 단어의 길이를 반환해주세요.</p>
+<blockquote>
+  <p>str: 텍스트<br />
+return: 중복되지 않은 알파벳 길이 (숫자 반환)</p>
+</blockquote>
+
+<blockquote>
+  <p>str = “abcabcabc”<br />
+return은 3<br />
+=&gt; ‘abc’ 가 제일 길기 때문</p>
+</blockquote>
+
+<blockquote>
+  <p>str = “aaaaa”<br />
+return은 1<br />
+=&gt; ‘a’ 가 제일 길기 때문</p>
+</blockquote>
+
+<blockquote>
+  <p>str = “sttrg”<br />
+return은 3<br />
+=&gt; ‘trg’ 가 제일 길기 때문</p>
+</blockquote>
+
+<h2 id="model-solution">Model Solution</h2>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_len_of_str</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+	<span class="n">dct</span> <span class="o">=</span> <span class="p">{}</span>
+	<span class="n">max_so_far</span> <span class="o">=</span> <span class="n">curr_max</span> <span class="o">=</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dct</span> <span class="ow">and</span> <span class="n">dct</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">:</span>
+			<span class="n">max_so_far</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_so_far</span><span class="p">,</span> <span class="n">curr_max</span><span class="p">)</span>
+			<span class="n">curr_max</span> <span class="o">=</span> <span class="n">index</span> <span class="o">-</span> <span class="n">dct</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+			<span class="n">start</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">curr_max</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="n">dct</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+	<span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_so_far</span><span class="p">,</span> <span class="n">curr_max</span><span class="p">)</span>
+</code></pre></div></div>
+<p>모델 솔루션에서는 <code class="language-plaintext highlighter-rouge">enumerate</code> 를 사용했는데 처음 보는 함수이기에 찾아보았다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/26542094/92996328-c41ced00-f545-11ea-96f1-d85240de4e66.png" alt="" /></p>
+
+<p>모델 솔루션을 봐도 바로 이해가 가지 않고 생각보다 어려웠다 ㅠ 이해하는데 시간이 오래 걸렸지만 확실히 이해하려고 노력했다 ㅠ</p>
+
+<hr />
+<p>참고 자료: https://wikidocs.net/16045</p>
+:ET

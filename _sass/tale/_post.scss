@@ -37,7 +37,15 @@
 .post {
   padding: 3rem 0;
 
+  &-header {
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    min-height: 360px;
+  }
+
   &-info {
+    margin: 0 0 80px 0;
     color: $default-tint;
     font-family: $serif-secondary;
     letter-spacing: 0.5px;

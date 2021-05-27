@@ -1,0 +1,42 @@
+I" <h2 id="response-데이터-제어를-위한-필터링">Response 데이터 제어를 위한 필터링</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@JsonIgnoreProperties</span><span class="o">(</span><span class="n">value</span><span class="o">={</span><span class="s">"password"</span><span class="o">})</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="c1">//@JsonFilter("UserInfo")</span>
+<span class="nd">@ApiModel</span><span class="o">(</span><span class="n">description</span> <span class="o">=</span> <span class="s">"사용자 상세 정보를 위한 도메인 객체"</span><span class="o">)</span>
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Size</span><span class="o">(</span><span class="n">min</span><span class="o">=</span><span class="mi">2</span><span class="o">,</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"Name은 2글자 이상 입력해 주세요."</span><span class="o">)</span>
+    <span class="nd">@ApiModelProperty</span><span class="o">(</span><span class="n">notes</span> <span class="o">=</span> <span class="s">"사용자 이름을 입력해 주세요."</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="nd">@Past</span>
+    <span class="nd">@ApiModelProperty</span><span class="o">(</span><span class="n">notes</span> <span class="o">=</span> <span class="s">"사용자의 등록일을 입력해 주세요."</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Date</span> <span class="n">joinDate</span><span class="o">;</span>
+</code></pre></div></div>
+<h3 id="jsonignoreproperties">@JsonIgnoreProperties()</h3>
+<p><code class="language-plaintext highlighter-rouge">@JsonIgnoreProperties(value={"password"})</code> 어노테이션을 통해 클라이언트로 리턴되는 데이터에서 <code class="language-plaintext highlighter-rouge">password</code> 는 <b>제외시킨 채로 전달</b>할 수 있다.<br />
+<code class="language-plaintext highlighter-rouge">value</code> 에 필드를 지정 가능하다.</p>
+
+<h3 id="jsonfilter">@JsonFilter()</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// AdminUserController.java</span>
+
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">MappingJacksonValue</span> <span class="nf">retrieveAllUsers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+
+        <span class="nc">SimpleBeanPropertyFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="nc">SimpleBeanPropertyFilter</span>
+                <span class="o">.</span><span class="na">filterOutAllExcept</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="s">"name"</span><span class="o">,</span> <span class="s">"joinDate"</span><span class="o">,</span> <span class="s">"password"</span><span class="o">);</span>
+
+        <span class="nc">FilterProvider</span> <span class="n">filters</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleFilterProvider</span><span class="o">().</span><span class="na">addFilter</span><span class="o">(</span><span class="s">"UserInfo"</span><span class="o">,</span> <span class="n">filter</span><span class="o">);</span>
+
+        <span class="nc">MappingJacksonValue</span> <span class="n">mapping</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MappingJacksonValue</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
+        <span class="n">mapping</span><span class="o">.</span><span class="na">setFilters</span><span class="o">(</span><span class="n">filters</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mapping</span><span class="o">;</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">@JsonFilter("UserInfo")</code> 어노테이션을 통해서 직접 필터를 정의할 수 있다. 위 명시한 <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">joinDate</code>, <code class="language-plaintext highlighter-rouge">password</code> 네 가지의 필드만 클라이언트에게 전달된다.<br />
+위와 같이 필드를 가지고 있는 클래스에 제어하고 싶은 내용이 있을 경우 필터 클래스를 통해 제어하여 <b>능동적으로 데이터를 제어</b>할 수 있다.</p>
+:ET

@@ -1,0 +1,45 @@
+I"�<p>상품 정보를 insert 하는 DAO 에서 상품 정보를 각각 해당하는 여러 개의 테이블에 입력해주어야 한다.
+```py</p>
+<h1 id="1-products-테이블에-데이터-insert">1. products 테이블에 데이터 insert</h1>
+<p>insert_query = “””
+INSERT INTO products
+(
+    created_at,
+    is_deleted
+) VALUES (
+    now(),
+    0
+)
+“””
+row = session.execute(insert_query).lastrowid</p>
+<h1 id="2-product_info-테이블에-데이터-insert">2. product_info 테이블에 데이터 insert</h1>
+<p>product_info[‘product_id’] = row</p>
+<h1 id="이미지-리스트를-가져와-첫-번째-이미지를-대표이미지로-저장">이미지 리스트를 가져와 첫 번째 이미지를 대표이미지로 저장</h1>
+<p>insert_query = “””
+INSERT INTO product_info
+( <br />
+    product_id,
+    product_code,
+    seller_id,
+    is_on_sale,
+    is_displayed,
+    name,
+    simple_description,
+    detail_description,
+    price,
+    discount_rate,
+…(생략)
+) VALUES (
+    :product_id,
+    :product_code,
+    :seller_id,
+    :is_on_sale,
+    :is_displayed,
+    :name,
+    :simple_description,
+    :detail_description,
+    :price,
+…(생략)
+)
+“””</p>
+:ET

@@ -1,0 +1,3 @@
+I"><h2 id="select_related-와-prefetch_related">select_related 와 prefetch_related</h2>
+<p>ORM 사용 시 반복되는 쿼리를 줄이기 위해 <code class="language-plaintext highlighter-rouge">select_related</code> 와 <code class="language-plaintext highlighter-rouge">prefetch_related</code> 가 사용된다.</p>
+:ET

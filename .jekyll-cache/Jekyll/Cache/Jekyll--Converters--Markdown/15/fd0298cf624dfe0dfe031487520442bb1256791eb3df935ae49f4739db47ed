@@ -1,0 +1,16 @@
+I"�<h2 id="arrayfield">ArrayField</h2>
+<blockquote>
+  <p>class ArrayField(base_field, size=None, **options)</p>
+</blockquote>
+
+<p>PostgreSQL 의 model field 중 하나이다.</p>
+
+<h3 id="base_field">base_field</h3>
+<p>ArrayField 에 들어가는 하위 클래스를 지정해주어야 하며 <em>필수 인자</em>이다.</p>
+
+<h3 id="size">size</h3>
+<p><em>option</em></p>
+
+<hr />
+<p><a href="https://docs.djangoproject.com/en/3.1/ref/contrib/postgres/fields/">공식 문서</a></p>
+:ET

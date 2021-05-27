@@ -1,0 +1,16 @@
+I"#<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">explain</code>  : EXPLAIN은 MySQL 서버가 어떠한 쿼리를 실행할 것인가, 즉 실행 계획이 무엇인지 알고 싶을 때 사용하는 기본적인 명령어</p>
+</blockquote>
+
+<h2 id="order-by-절을-안썼을-경우">order by 절을 안썼을 경우</h2>
+<p><img src="https://user-images.githubusercontent.com/26542094/93477638-3d498500-f936-11ea-9ee1-35791e2c1b21.png" alt="workbench" /></p>
+
+<h2 id="order-by-절을-썼을-경우">order by 절을 썼을 경우</h2>
+<p><img src="https://user-images.githubusercontent.com/26542094/93477605-315dc300-f936-11ea-8629-484236ffce05.png" alt="workbench" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">type</code> 컬럼 : ALL 일 경우엔 인덱싱이 되지 않은 경우이고 index의 경우엔 인덱싱이 되었다는 뜻이다! 따라서 <code class="language-plaintext highlighter-rouge">id</code> 가 AI로 이미 순차적으로 정렬되어 있어도 <code class="language-plaintext highlighter-rouge">order by id</code> 로 정렬해준후 select를 할 경우 인덱싱이 되어 더욱 효울적이란 것을 알 수 있었다.</p>
+
+<hr />
+
+<p>이번 주말 할 일 : sql 책 읽기, index 공부, 플라스크 공부, 팀원들과 모델링 회의</p>
+:ET

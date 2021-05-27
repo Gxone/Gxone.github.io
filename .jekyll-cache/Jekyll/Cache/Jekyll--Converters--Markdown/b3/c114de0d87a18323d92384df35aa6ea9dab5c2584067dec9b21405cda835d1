@@ -1,0 +1,46 @@
+I"=<h2 id="코드-리뷰">코드 리뷰</h2>
+<h4 id="이전-리뷰-받았던-코드에서-수정한-부분">이전 리뷰 받았던 코드에서 수정한 부분</h4>
+<h5 id="controller">controller</h5>
+<p>product list 에서 seller 데이터를 dao 의 함수를 호출해서 가져오지 않고 (이럴 경우 쿼리를 한 번 더 날리게 됨)<br />
+셀러의 아이디와 product 의 셀러 아이디를 조건으로 <code class="language-plaintext highlighter-rouge">seller</code> 테이블을 <code class="language-plaintext highlighter-rouge">JOIN</code> 해서 셀러의 데이터를 가져오도록 수정하였다.
+<img src="https://user-images.githubusercontent.com/26542094/94157253-fd494b80-febb-11ea-8dda-74e10ebc8299.png" alt="modify" /></p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- products</span>
+ <span class="k">SELECT</span> 
+    <span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> 
+    <span class="n">p_info</span><span class="p">.</span><span class="n">main_img</span><span class="p">,</span> 
+    <span class="n">p_info</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> 
+    <span class="n">p_info</span><span class="p">.</span><span class="n">price</span><span class="p">,</span> 
+    <span class="n">p_info</span><span class="p">.</span><span class="n">sales_amount</span><span class="p">,</span> 
+    <span class="n">p_info</span><span class="p">.</span><span class="n">discount_rate</span><span class="p">,</span> 
+    <span class="n">p_info</span><span class="p">.</span><span class="n">discount_price</span><span class="p">,</span> 
+    <span class="n">p_info</span><span class="p">.</span><span class="n">seller_id</span><span class="p">,</span>
+    <span class="n">s_info</span><span class="p">.</span><span class="n">korean_name</span>
+<span class="k">FROM</span> <span class="n">products</span> <span class="k">AS</span> <span class="n">p</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">product_info</span> <span class="k">AS</span> <span class="n">p_info</span> <span class="k">ON</span> <span class="n">p</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">p_info</span><span class="p">.</span><span class="n">product_id</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">sellers</span> <span class="k">AS</span> <span class="n">s</span> <span class="k">ON</span> <span class="n">p_info</span><span class="p">.</span><span class="n">seller_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">id</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">seller_info</span> <span class="k">AS</span> <span class="n">s_info</span> <span class="k">ON</span> <span class="n">s_info</span><span class="p">.</span><span class="n">seller_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">id</span>
+<span class="k">WHERE</span> <span class="p">(</span><span class="n">p_info</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span> <span class="n">p_info</span><span class="p">.</span><span class="n">created_at</span><span class="p">)</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">p_info</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="n">p_info</span><span class="p">.</span><span class="n">created_at</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">product_info</span> <span class="k">AS</span> <span class="n">p_info</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">p_info</span><span class="p">.</span><span class="n">product_id</span><span class="p">)</span> 
+<span class="k">AND</span> <span class="n">p</span><span class="p">.</span><span class="n">is_deleted</span> <span class="o">=</span> <span class="mi">0</span> 
+<span class="k">AND</span> <span class="n">p_info</span><span class="p">.</span><span class="n">is_displayed</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div></div>
+<p>그리고 <code class="language-plaintext highlighter-rouge">flask_request_validtor</code> 패키지를 사용해서 products 엔드포인트에 들어오는 쿼리 파라미터의 유효성을 검사하려고 했다. 근데 install 을 했음에도 불구하고 자꾸 import 가 안돼서 못하고 있다. 답답….</p>
+
+<h5 id="dao">dao</h5>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WHERE</span> <span class="p">(</span><span class="n">p_info</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span> <span class="n">p_info</span><span class="p">.</span><span class="n">created_at</span><span class="p">)</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">p_info</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="n">p_info</span><span class="p">.</span><span class="n">created_at</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">product_info</span> <span class="k">AS</span> <span class="n">p_info</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">p_info</span><span class="p">.</span><span class="n">product_id</span><span class="p">)</span> 
+</code></pre></div></div>
+
+<p>테스트하면서 수정된 상품 이력 데이터를 넣어보고나서 <code class="language-plaintext highlighter-rouge">products</code> 엔드포인트를 호출하니 이력이 모두 뜨는 것을 발견하고 수정 이력과 관련된 내용이 빠졌다는 것을 알게 됐다 (다행 ㅎ)<br />
+위와 같이 <code class="language-plaintext highlighter-rouge">created_at</code> 으로 가장 최근의 이력만 가지고 오도록 수정하였다. 
+서브 쿼리의 내옹을 출력하면 아래와 같은데 상품의 아이디로 그룹을 만들고 그 중에서 가장 최근의 날짜 데이터만 가지고 오도록 한다! 그리고 그 아이디와 날짜를 비교해 가장 최신의 데이터만 가져오도록 해주었는데 이 점에 관해서 피드백을 해주셨다! <br />
+피드백 내용은 현재 상품을 점 이력으로 관리 중인데 <code class="language-plaintext highlighter-rouge">product_info</code> 테이블에 <code class="language-plaintext highlighter-rouge">is_deleted</code> 컬럼을 이용하라고 하셨다. 이미 용민님과 리뷰 전에 이에 관해서 한 번 이야기 했었는데 코드를 다시 수정해야 할 것 같다. 지난 이력은 1로 변경한다면 가장 최신의 데이터는 0 이기 때문에 좀 더 쉽게 최신 데이터를 가져올 수 있을 것 같다.
+<img src="https://user-images.githubusercontent.com/26542094/94159300-56b27a00-febe-11ea-9238-017ddd3a4772.png" alt="q" /></p>
+
+<hr />
+
+<p>내일 할 일 :</p>
+<ul>
+  <li>menu: join 해서 쿼리 하나로 만들기</li>
+  <li>상품 이력 created_at 이 아닌 is_deleted 로 가져오기</li>
+  <li>seller 정보 가져오는 코드 JOIN 으로 수정하기</li>
+</ul>
+:ET

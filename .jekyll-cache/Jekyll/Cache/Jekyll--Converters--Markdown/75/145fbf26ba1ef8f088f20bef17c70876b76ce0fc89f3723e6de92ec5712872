@@ -1,0 +1,86 @@
+I"�<h2 id="오전">오전</h2>
+<h3 id="inner-join-에서의-on-vs-where">INNER JOIN 에서의 ON vs WHERE</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ON</code>: JOIN 을 하기 전에 필터링을 한다. 따라서 ON 조건으로 필터링이 된 레코드들 간 JOIN 이 이루어진다.</li>
+  <li><code class="language-plaintext highlighter-rouge">WHERE</code>: JOIN 을 한 후 필터링을 한다. JOIN 한 결과에서 WHERE 조건절로 필터링이 이뤄진다.</li>
+</ul>
+
+<h2 id="오후">오후</h2>
+<p>메뉴 리스트를 보내는 API 도 쿼리문을 한 번만 보내도록 수정하고 싶어서 수정을 하고 난 뒤 뿌듯함을 느끼면서 결과를 확인해 보니
+<img src="https://user-images.githubusercontent.com/26542094/94230845-cca9f600-ff3d-11ea-9221-105d14c22b9c.png" alt="img" />
+띠용 뭔가 이상했다.
+홈, 랭킹 같은 메인 카테고리에는 하위 메뉴가 없어서 JOIN 시 매칭되는 레코드가 없어서 출력이 안되고 있었다. 
+이럴 때 사용하는 것이 OUTER JOIN!<br />
+학교에서 배울 때는 정말 단순하게 <code class="language-plaintext highlighter-rouge">INNER JOIN</code> 은 일치하는 것만 조인하는 것..<br />
+<code class="language-plaintext highlighter-rouge">OUTER JOIN</code> 은 매칭이 안되는 레코드도 모두 출력하는 것..<br />
+이렇게만 달달 외우고 근데 언제 아우터 조인을 사용하고 왜 사용하지?? 라는 의문에 대해서는 해결을 못하고 열심히 손 코딩만 했었는데 직접 사용해야 할 상황이 생기고 필요성을 느끼고 나니 몇 년전 궁금증이 단번에 해결되어서 기분이 좋았다 ㅎ</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> 
+    <span class="n">m_cat</span><span class="p">.</span><span class="n">id</span> <span class="k">AS</span> <span class="n">m_id</span><span class="p">,</span> 
+    <span class="n">m_cat</span><span class="p">.</span><span class="n">main_category_name</span><span class="p">,</span>
+    <span class="n">f_cat</span><span class="p">.</span><span class="n">id</span> <span class="k">AS</span> <span class="n">f_id</span><span class="p">,</span>
+    <span class="n">f_cat</span><span class="p">.</span><span class="n">first_category_name</span>
+<span class="k">FROM</span> <span class="n">main_categories</span> <span class="k">AS</span> <span class="n">m_cat</span> 
+<span class="k">LEFT</span> <span class="k">OUTER</span> <span class="k">JOIN</span> <span class="n">first_categories</span> <span class="k">AS</span> <span class="n">f_cat</span> <span class="k">ON</span> <span class="n">m_cat</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">f_cat</span><span class="p">.</span><span class="n">main_category_id</span>
+</code></pre></div></div>
+<p>먼저 메인 카테고리와 첫 번째 카테고리만 사용해서 아우터 조인 실행!
+<img src="https://user-images.githubusercontent.com/26542094/94231409-eac42600-ff3e-11ea-90da-e170e054189e.png" alt="img" /></p>
+
+<p>원하던 대로 하위 메뉴가 존재하지 않는 메인 메뉴도 출력이 되면서 매칭되지 않는 컬럼에는 NULL 값이 나왔다 😆</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> 
+    <span class="n">m_cat</span><span class="p">.</span><span class="n">id</span> <span class="k">AS</span> <span class="n">m_id</span><span class="p">,</span> 
+    <span class="n">m_cat</span><span class="p">.</span><span class="n">main_category_name</span><span class="p">,</span>
+    <span class="n">f_cat</span><span class="p">.</span><span class="n">id</span> <span class="k">AS</span> <span class="n">f_id</span><span class="p">,</span>
+    <span class="n">f_cat</span><span class="p">.</span><span class="n">first_category_name</span><span class="p">,</span>
+    <span class="n">f_cat</span><span class="p">.</span><span class="n">main_category_id</span><span class="p">,</span>
+    <span class="n">s_cat</span><span class="p">.</span><span class="n">id</span> <span class="k">AS</span> <span class="n">s_id</span><span class="p">,</span>
+    <span class="n">s_cat</span><span class="p">.</span><span class="n">second_category_name</span><span class="p">,</span>
+    <span class="n">s_cat</span><span class="p">.</span><span class="n">first_category_id</span>
+<span class="k">FROM</span> <span class="n">main_categories</span> <span class="k">AS</span> <span class="n">m_cat</span> 
+<span class="k">LEFT</span> <span class="k">OUTER</span> <span class="k">JOIN</span> <span class="n">first_categories</span> <span class="k">AS</span> <span class="n">f_cat</span> <span class="k">ON</span> <span class="n">m_cat</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">f_cat</span><span class="p">.</span><span class="n">main_category_id</span>
+<span class="k">LEFT</span> <span class="k">OUTER</span> <span class="k">JOIN</span> <span class="n">second_categories</span> <span class="k">AS</span> <span class="n">s_cat</span> <span class="k">ON</span> <span class="n">f_cat</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">s_cat</span><span class="p">.</span><span class="n">first_category_id</span>
+</code></pre></div></div>
+<p>이제 진짜 원하는 데이터 두 번째 카테고리까지 출력시키도록 수정하고 실행!
+<img src="https://user-images.githubusercontent.com/26542094/94240708-a2146900-ff4e-11ea-8f24-8e8abb3eaaa5.png" alt="img" /></p>
+
+<p>원하던 내용으로 출력되었다 ㅎㅎ</p>
+
+<p>그리고 이젠 컨트롤러 수정이 필요한 차례 ㅠ</p>
+
+<p>바뀐 DAO 결과를 이용해서 원래 약속한 JSON 형태로 보내주어야 하는데 …<br />
+이전과 같은 계층 구조로 맞추는게 굉장히 힘들었는데 한 4 시간 정도 걸린 것 같다 😃</p>
+
+<p>각 카테고리를 계층 구조로 보내줘야해서 한 번의 for 문으로는 불가능했다.
+일단 내가 처음 생각한 코드의 결과는 아래와 같이 메인과 첫 번째 카테고리도 계속 중복해서 출력되는 문제가 있었다. 
+<img src="https://user-images.githubusercontent.com/26542094/94260512-473d3a80-ff6b-11ea-84bd-838947347076.png" alt="img" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># product_controller.py
+category = product_service.get_menu(session)
+
+            # 각 카테고리를 저장하기 위한 리스트
+            second_category = []
+            first_category = []
+            main_category = []
+
+            for i in category:
+                if (i.m_id, i.main_category_name) not in main_category:
+                    # 메인 카테고리 리스트
+                    main_category.append((i.m_id, i.main_category_name))
+                if (i.f_id, i.first_category_name, i.main_category_id) not in first_category:
+                    # 첫 번째 데이터 리스트
+                    first_category.append((i.f_id, i.first_category_name, i.main_category_id))
+                # 세 번째 카테고리 리스트
+                second_category.append((i.s_id, i.second_category_name, i.first_category_id))
+
+            body = [{
+                'id'      : m_menu[0],
+                m_menu[1] : [{
+                    'id'      : f_menu[0],
+                    f_menu[1] : [{
+                        'id'   : s_menu[0],
+                        'name' : s_menu[1]
+                    } for s_menu in second_category if s_menu[2] == f_menu[0]]
+                } for f_menu in first_category if f_menu[2] == m_menu[0]]
+            } for m_menu in main_category]
+</code></pre></div></div>
+:ET

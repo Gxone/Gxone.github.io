@@ -1,0 +1,60 @@
+I"K<h2 id="select_related-와-prefetch_related">select_related 와 prefetch_related</h2>
+<p>ORM 사용 시 반복되는 쿼리를 줄이기 위해 <code class="language-plaintext highlighter-rouge">select_related</code> 와 <code class="language-plaintext highlighter-rouge">prefetch_related</code> 가 사용된다.</p>
+
+<p>(참고) 쿼리셋은 데이터베이스 접근을 최소화 하기 위해 캐시를 가지고 있다. 처음 생성되는 쿼리셋은 캐시가 비어있어 쿼리가 발생한다. 그 후 동일한 쿼리셋을 사용할 경우 다시 쿼리를 발생하지 않고 캐시 된 결과를 재사용하게 된다. 
+<a href="https://docs.djangoproject.com/en/2.2/topics/db/queries/#caching-and-querysets">https://docs.djangoproject.com/en/2.2/topics/db/queries/#caching-and-querysets</a></p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">models</span><span class="p">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">email</span>         <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>
+    <span class="n">password</span>      <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">first_name</span>    <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">last_name</span>     <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">birth_date</span>    <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">is_host</span>       <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">BooleanField</span><span class="p">()</span>
+    <span class="n">platform</span>      <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">'LoginPlatform'</span><span class="p">,</span> <span class="n">on_delete</span> <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">created_at</span>    <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">LoginPlatform</span><span class="p">(</span><span class="n">models</span><span class="p">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="select_related">select_related</h3>
+<p><code class="language-plaintext highlighter-rouge">select_related</code> 는 1:1 관계 또는 1:N 관계에서 N이 사용할 수 있다. 쿼리셋을 반환할 때 관계된 모델을 함께 가져오도록 한다.
+<code class="language-plaintext highlighter-rouge">JOIN</code> 쿼리는 한 번만 사용되고 platform 정보는 캐싱된다. 
+따라서 platform 의 name 을 가져올 때 데이터베이스에 쿼리를 날리지 않는다. (DB hit X)</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="n">select_related</span><span class="p">(</span><span class="s">'platform'</span><span class="p">).</span><span class="nb">all</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; user[0].platform.name
+'airbnb'
+</code></pre></div></div>
+
+<h3 id="prefetch_related">prefetch_related</h3>
+<p><code class="language-plaintext highlighter-rouge">prefetch_related</code>  는 M:N 관계 또는 1:1, 1:N 관계에서 1이 사용할 수 있다. <code class="language-plaintext highlighter-rouge">select_related</code> 와 차이점은 <code class="language-plaintext highlighter-rouge">JOIN</code> 쿼리를 통해 쿼리셋을 가져오지만 <code class="language-plaintext highlighter-rouge">prefetch_related</code>  는 2개의 쿼리를 각각 수행한 후에 파이썬에서 <code class="language-plaintext highlighter-rouge">JOIN</code> 한다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; platform = LoginPlatform.objects.prefetch_related('user_set')
+&gt;&gt;&gt; platform
+&lt;QuerySet [&lt;LoginPlatform: airbnb&gt;, &lt;LoginPlatform: google&gt;]&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; platform_1 = LoginPlatform.objects.prefetch_related('user_set').get(id = 1)
+&gt;&gt;&gt; platform_1
+&lt;LoginPlatform: airbnb&gt;
+
+&gt;&gt;&gt; platform_1.user_set.all()
+&lt;QuerySet [&lt;User: test1@test.com&gt;, &lt;User: test1@testcom&gt;, &lt;User: ghhe1@test.com&gt;, &lt;User: wecode@good.com&gt;, &lt;User: wecode123@good.com&gt;, &lt;User: wecode12@wecode.com&gt;]&gt;
+
+&gt;&gt;&gt; pq.get(id=1).email
+'test1@test.com'
+</code></pre></div></div>
+
+<h4 id="참고-쿼리셋의-쿼리-확인하는-방법">(참고) 쿼리셋의 쿼리 확인하는 방법</h4>
+<p>파이썬 쉘에서 queryset.query 의 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">print</code> 를 하면 SQL 질의문을 확인 할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; str(u[0].user_set.all().query)
+'SELECT `users`.`id`, `users`.`email`, `users`.`password`, `users`.`first_name`, `users`.`last_name`, `users`.`birth_date`, `users`.`is_host`, `users`.`platform_id`, `users`.`created_at` FROM `users` WHERE `users`.`platform_id` = 1'
+
+&gt;&gt;&gt; print(u[0].user_set.all().query)
+SELECT `users`.`id`, `users`.`email`, `users`.`password`, `users`.`first_name`, `users`.`last_name`, `users`.`birth_date`, `users`.`is_host`, `users`.`platform_id`, `users`.`created_at` FROM `users` WHERE `users`.`platform_id` = 1
+</code></pre></div></div>
+:ET

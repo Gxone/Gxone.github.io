@@ -1,0 +1,5 @@
+I"„<h2 id="starbucks-model">Starbucks Model</h2>
+<p>```py
+class Category(models.Model):
+    name = models.CharField(max_length=50)</p>
+:ET
