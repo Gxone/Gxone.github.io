@@ -1,0 +1,7 @@
+<div class="post-info loading-animation">
+    <div class="catalogue-tag">{{ page.category }}</div>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.date %}
+      <span>on&ensp;</span><time class="catalogue-time" datetime="{{ page.date }}">{{ page.date | date: "%B %d, %Y" }}</time>
+    {% endif %}
+</div>

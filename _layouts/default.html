@@ -4,9 +4,10 @@
   <body>
     {% include navigation.html %}
     {% if page.blog-title %}
-      {% include page-header.html %}
+      {% include post-list-header.html %}
     {% endif %}
-    {% include header-img.html %}
+    {% include post-info.html %}
+    {% include post-header-img.html %}
     <main>
       {{ content }}
     </main>
