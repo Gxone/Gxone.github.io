@@ -36,7 +36,8 @@
 
 .post {
   padding: 3rem 0;
-
+  scroll-behavior: smooth;
+  
   &-header {
     background-position: center center;
     background-size: cover;
@@ -63,16 +64,26 @@
     margin: 1rem 0;
   }
 
+  &-subtitle {
+    color:$default-tint; 
+    font-size:20px;
+  }
+
   &-line {
     border-top: 0.4rem solid $default-shade;
     display: block;
     margin: 0 auto 3rem;
     width: 4rem;
   }
-
+  
   p {
     margin: 0 0 1rem;
     text-align: justify;
+    line-height: 1.8;
+  }
+
+  a {
+    color: $code-color;
   }
 
   a:hover {
@@ -102,5 +113,35 @@
     vertical-align: text-top;
     padding: 0;
     margin: 0;
+  }
+
+  li::marker {
+    font-weight: bold;
+    font-size: large;
+    color: $blue;
+  }
+
+  sup {
+    color: $code-color;
+  }
+
+  .footnotes {
+    margin-top: 100px;
+    font-size: 15px;
+    color: $default-tint;
+
+    ol {
+      padding-left: 18.52px;
+
+      li::marker {
+        font-weight: lighter;
+        color: $default-tint;
+      }
+
+      a {
+        color: $default-tint;
+        text-decoration: none;
+      }
+    }
   }
 }
