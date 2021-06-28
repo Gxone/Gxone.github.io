@@ -52,7 +52,7 @@ date: "2021-06-27"
 <br>
 ### 해시 함수의 문제점
 - Brute force attack (무차별 대입 공격) : 해시 함수의 본래 목적은 비밀번호 암호화가 아닌 짧은 시간에 데이터를 검색하기 위해 설계되었습니다. 이러한 특징 때문에 해커는 ```해킹할 대상의 digest```와 ```임의의 문자열의 digest```를 빠른 속도로 비교하여 비밀번호를 해킹할 수 있고 유저들이 보통 길거나 복잡하지 않은 비밀번호를 사용한다는 것을 노린 공격 기법입니다.
-- Rainbow table attack : 미리 해시 값을 계산해 놓은 테이블을 ```Rainbow table```이라고 합니다. 임의의 문자열을 해싱하면 항상 같은 값이 나온다는 특징을 이용한 해킹 기법입니다. 수많은 문자열의 해시 값을 미리 계산해 DB화하여 Rainbow table을 만들고 해킹한 비밀번호를 Rainbow table의 해시 값들과 비교합니다. 유저들이 어렵지 않고 흔하게 사용되는 비밀번호를 사용할 경우 해킹당할 위험이 크고 같은 비밀번호를 가진 다른 유저까지 해킹당할 위험이 있습니다.
+- Rainbow table attack : 미리 해시 값을 계산해 놓은 테이블을 ```Rainbow table```이라고 합니다. 임의의 문자열을 해싱하면 항상 같은 값이 나온다는 특징을 이용한 해킹 기법입니다. 수많은 문자열의 해시 값을 미리 계산해 DB화하여 Rainbow table을 만들고 해킹한 비밀번호를 Rainbow table의 해시 값들과 비교합니다. 유저들이 어렵지 않고 흔하게 쓰이는 비밀번호를 사용할 경우 해킹당할 위험이 크고 같은 비밀번호를 가진 다른 유저까지 해킹당할 위험이 있습니다.
 
 ### 해시 함수의 문제점 보완
 ![salting](img/salting.png)
@@ -66,8 +66,25 @@ date: "2021-06-27"
 
 <br>
 ## Bcrypt
-[Bcrypt 라이브러리](https://pypi.org/project/bcrypt/)
+[bcrypt](https://ko.wikipedia.org/wiki/Bcrypt)는 단방향 암호화 해싱함수로 1999년 USENIX에서 발표되었습니다. 
+```
+$2b$[cost]$[22 character salt][31 character hash]
+```
+bcrypt의 해시 문자열은 위와 같은 형태로 출력됩니다. 
 
+각 부분을 살펴보면 다음과 같습니다. 
+```
+$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
+\__/\/ \____________________/\_____________________________/
+ Alg Cost      Salt                        Hash
+ ```
+- $2a$ : 해시 알고리즘 식별자 (bcrypt)
+- 10 : 반복 횟수로 2^n
+- N9qo8uLOickgx2ZMRZoMye : 16바이트 salt
+- IjZAgcfl7p92ldGxad68LJZdL17lhWy : 24바이트 해시 (salt와 패스워드를 함께 해시하여 유추 불가능) 
+
+
+[bcrypt 라이브러리](https://pypi.org/project/bcrypt/)를 사용하여 비밀번호를 암호화하고 일치 여부를 확인하는 과정입니다. 
 ```bash
 >>> import bcrypt
 >>> password = 'test password'
@@ -77,6 +94,7 @@ date: "2021-06-27"
 bcrypt는 ```str``` 데이터가 아닌 ```Byte``` 데이터를 암호화 합니다. 위처럼 bcrypt를 통해 암호화된 비밀번호를 얻습니다.
 
 ```bash
+>>> password = 'test password'
 >>> hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 >>> bcrypt.checkpw(password.encode('utf-8'),hashed_password)
 True
