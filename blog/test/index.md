@@ -99,7 +99,7 @@ bcrypt는 ```str``` 데이터가 아닌 ```Byte``` 데이터를 암호화 합니
 >>> bcrypt.checkpw(password.encode('utf-8'),hashed_password)
 True
 ```
-비밀번호가 일치하는지 확인하기 위해서는 해싱된 비밀번호와 입력된 비밀번호를 bcrypt가 지원하는 ```checkpw()```를 통하여 확인할 수 있습니다. 
+비밀번호가 일치하는지 확인하기 위해서는 입력된 비밀번호와 해싱된 비밀번호를 ```checkpw()```의 인자로 넘겨 일치 여부를 확인할 수 있습니다. 
 
 <div class='footnotes'>
     <ol>
