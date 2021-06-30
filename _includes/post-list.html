@@ -1,4 +1,4 @@
-{% assign sorted = site.pages | sort: 'order' %}
+{% assign sorted = site.pages | sort: 'date' | reverse %}
 {% for page in sorted %}
     {% if page.blog == true %}
     <a class="catalogue-item" href="{{ page.url | prepend: site.baseurl }}">
