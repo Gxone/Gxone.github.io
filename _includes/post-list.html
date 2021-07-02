@@ -12,7 +12,7 @@
             {{ page.date | date: "%B %d, %Y" }}
         </time>
         <p class="catalogue-body">
-            {{ page.content | truncatewords: 24 | strip_html }}
+            {{ page.content | truncate: 200 | markdownify | strip_html }}
         </p>
     </a>
     {% endif %}

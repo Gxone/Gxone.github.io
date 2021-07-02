@@ -66,7 +66,7 @@ date: "2021-06-27"
 
 <br>
 ## Bcrypt
-[bcrypt](https://ko.wikipedia.org/wiki/Bcrypt)는 단방향 암호화 해싱함수로 1999년 USENIX에서 발표되었습니다. 
+[bcrypt](https://ko.wikipedia.org/wiki/Bcrypt)는 단방향 암호화 해시 함수로 1999년 USENIX에서 발표되었습니다. 
 ```
 $2b$[cost]$[22 character salt][31 character hash]
 ```
