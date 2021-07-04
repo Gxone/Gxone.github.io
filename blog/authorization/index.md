@@ -88,11 +88,11 @@ payload = jwt.decode(access_token, secret_key['SECRET_KEY'], algorithm = ALGORIT
 여기서 payload의 값은 token을 만들 때 넘겨주었던 ```{'email': user.email}```입니다.
 
 ## Refresh Token
-로그인을 장기간 유지하기 위해서는 토큰의 유효 기간을 길게 늘이거나 설정하지 않을 수도 있습니다. 하지만 이럴 때 토큰이 탈취당하게 된다면 유효 기간 동안 제 3자가 인증된 유저의 행위를 할 수 있게 됩니다. 이는 보안에 있어 큰 취약점이 됩니다. 반대로 토큰의 유효 기간을 짧게 설정할 경우 유효기간이 끝날 때마다 유저는 로그인 해야 하기 때문에 불편함을 느낄 수 있습니다. 이러한 문제점들은 access token과 함께 ```Refresh Token```을 사용하여 보완할 수 있습니다. 
+로그인을 장기간 유지하기 위해서는 토큰의 유효 기간을 길게 늘이거나 설정하지 않을 수도 있습니다. 하지만 이럴 때 토큰이 탈취당하게 된다면 유효 기간 동안 제 3자가 인증된 유저의 행위를 할 수 있게 됩니다. 이는 보안에 있어 큰 취약점이 됩니다. 반대로 토큰의 유효 기간을 짧게 설정할 경우 유효 기간이 끝날 때마다 유저는 로그인 해야 하기 때문에 불편함을 느낄 수 있습니다. 이러한 문제점들은 access token과 함께 ```Refresh Token```을 사용하여 보완할 수 있습니다. 
 1. 서버는 유저에게 access token과 함께 refresh token을 발급합니다.
 2. 클라이언트는 access token과 함께 API를 호출합니다.
 3. 서버가 만료된 access token을 받았을 경우 클라이언트에게 권한이 없다는 에러를 보내고 클라이언트는 다시 재발급을 요청하게 됩니다.
-또는 요청 전에 클라이언트가 payload를 통해 유효기간이 만료됨을 감지하고 서버에게 access token 재발급을 요청할 수도 있습니다.
+또는 요청 전에 클라이언트가 payload를 통해 유효 기간이 만료됨을 감지하고 서버에게 access token 재발급을 요청할 수도 있습니다.
 4. 클라이언트는 재발급을 위해 access token과 함께 refresh token을 서버로 보냅니다.
-5. 서버는 access token의 조작 여부를 먼저 확인하고 서버의 refresh token과 클라이언트의 refresh token을 비교합니다. 서로 동일하고 유효기간이 남아있다면 클라이언트에게 새로운 access token을 발급합니다. 만약 refresh token이 만료되었다면 로그인을 요청합니다.
+5. 서버는 access token의 조작 여부를 먼저 확인하고 서버의 refresh token과 클라이언트의 refresh token을 비교합니다. 서로 동일하고 유효 기간이 남아있다면 클라이언트에게 새로운 access token을 발급합니다. 만약 refresh token이 만료되었다면 로그인을 요청합니다.
  
