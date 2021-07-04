@@ -6,7 +6,7 @@ text: true
 post-header: true
 header-img: "img/header.jpg"
 category: "WEB"
-date: "2021-06-29"
+date: "2021-07-04"
 ---
 # 인가 
 <b class='post-subtitle'>Authorization</b>
@@ -56,8 +56,8 @@ HTTP는 ```stateless protocol```에 속합니다. 프로토콜이 상태 정보�
 - 장점
     - 추가 저장소가 필요 없어 서버를 확장하기에 유리
 - 단점
-    - 토큰의 payload 부분을 decode하여 사용자의 개인 정보를 탈취할 수 있어 보안 측면에서 세션 인증 방식보다 위험
-    - 이미 발급된 토큰은 유효기간이 만료될 때 까지 삭제 불가능
+    - 토큰의 payload 부분을 decode 하여 사용자의 개인 정보를 탈취할 수 있어 보안 측면에서 세션 인증 방식보다 위험
+    - 이미 발급된 토큰은 유효기간이 만료될 때까지 삭제 불가능
 
 <br>
 
@@ -67,9 +67,9 @@ JWT<l style='font-size:14px; color:#aaa'>(JSON Web Token)</l>는 ```access token
 ![JWT](img/JWT.png)
 JWT의 구조는 다음과 같습니다.
 - **header** : 암호화 알고리즘 정보와 토큰의 타입에 대한 정보가 담겨있습니다.
-- **payload** : 유저의 인증 정보, 최소한의 필요한 정보만 담겨있어야 합니다.
-- **signature** : header와 payload를 Base64 인코딩하여 (.) 구분자로 연결시킵니다. 그리고 지정한 암호화 알고리즘과 secret key를 사용하여 암호화를 합니다. 
-이 후 토큰을 탈취하여 payload의 내용을 변경하더라도 변경되기 전의 payload 데이터로 signature에 암호화해두었기 때문에 토큰의 위변조를 감지할 수 있습니다.  
+- **payload** : 유저의 인증 정보, 최소한의 필요한 정보만 담겨있어야 합니다. Base64로만 인코딩되기 때문에 탈취당할 경우 쉽게 유저의 데이터를 알아낼 수 있습니다. 따라서 사용자를 판별할 수 있으면서도 고유한 값인 유저의 ID나 토큰의 유효 기간 등의 정보만 넣습니다.
+- **signature** : header와 payload를 Base64 인코딩하여 (.) 구분자로 연결합니다. 그리고 지정한 암호화 알고리즘과 secret key를 사용하여 암호화를 합니다. 
+이후 토큰을 탈취하여 payload의 내용을 변경하더라도 변경되기 전의 payload 데이터로 signature에 암호화해두었기 때문에 토큰의 위변조를 감지할 수 있습니다.  
 
 JWT의 결과 값은 버전에 따라 ```bytes``` 타입(ver. 1.7) 또는 ```str``` 타입(ver. 2.0 이상)입니다.  
 
@@ -87,14 +87,12 @@ payload = jwt.decode(access_token, secret_key['SECRET_KEY'], algorithm = ALGORIT
 ```
 여기서 payload의 값은 token을 만들 때 넘겨주었던 ```{'email': user.email}```입니다.
 
-
----
-왜 세션 아이디는 쿠키에 저장 토큰은 로컬.ㅐ[[]]
-쿠키는 httponly 옵션이 존재해서 xss공격을 방지할 수 있다. 
-로컬 스토리지는 Js로 접근 가능
-세션 아이디는 httponlny secure 쿠키에 저장되어야 한다. 
-xss js 대입해 탈취
-csrf 인증된 사용자의 행위를 할 수 있음
-로컬 스토리지는 사용자가 삭제하기 전까지 삭제되지 않음
-토큰은 서버로부터 전달받은 데이터를 저장하고 전달하는 것을 목적으로 함
-로컬스토리지는 페이지에서 일어나는 상태나 데이터를 목적으로 함
+## Refresh Token
+로그인을 장기간 유지하기 위해서는 토큰의 유효 기간을 길게 늘이거나 설정하지 않을 수도 있습니다. 하지만 이럴 때 토큰이 탈취당하게 된다면 유효 기간 동안 제 3자가 인증된 유저의 행위를 할 수 있게 됩니다. 이는 보안에 있어 큰 취약점이 됩니다. 반대로 토큰의 유효 기간을 짧게 설정할 경우 유효기간이 끝날 때마다 유저는 로그인 해야 하기 때문에 불편함을 느낄 수 있습니다. 이러한 문제점들은 access token과 함께 ```Refresh Token```을 사용하여 보완할 수 있습니다. 
+1. 서버는 유저에게 access token과 함께 refresh token을 발급합니다.
+2. 클라이언트는 access token과 함께 API를 호출합니다.
+3. 서버가 만료된 access token을 받았을 경우 클라이언트에게 권한이 없다는 에러를 보내고 클라이언트는 다시 재발급을 요청하게 됩니다.
+또는 요청 전에 클라이언트가 payload를 통해 유효기간이 만료됨을 감지하고 서버에게 access token 재발급을 요청할 수도 있습니다.
+4. 클라이언트는 재발급을 위해 access token과 함께 refresh token을 서버로 보냅니다.
+5. 서버는 access token의 조작 여부를 먼저 확인하고 서버의 refresh token과 클라이언트의 refresh token을 비교합니다. 서로 동일하고 유효기간이 남아있다면 클라이언트에게 새로운 access token을 발급합니다. 만약 refresh token이 만료되었다면 로그인을 요청합니다.
+ 
