@@ -68,7 +68,7 @@ JWT의 구조는 다음과 같습니다.
 - **signature** : header와 payload를 Base64 인코딩하여 (.) 구분자로 연결합니다. 그리고 지정한 암호화 알고리즘<small>(일반적으로 HS256 또는 RS256)</small>과 secret key를 사용하여 암호화를 합니다. 
 이후 토큰을 탈취하여 payload의 내용을 변경하더라도 변경되기 전의 payload 데이터로 signature에 암호화해두었기 때문에 토큰의 위변조를 감지할 수 있습니다. 예를 들어, 제3자가 payload의 유저 id를 '123'에서 '456'으로 바꾸었다고 하더라도 signature의 값은 서버만 알고 있는 secret key로 암호화를 해두었기 때문에 변경할 수 없습니다. 따라서 변조된 access token으로 서버에 요청하면 서버는 Base64로 인코딩되어있는 header와 변조된 payload를 가져와 다시 지정한 알고리즘과 secret key로 해싱하여 signature를 생성합니다. payload가 바뀌었기 때문에 기존 토큰의 signature와 값이 일치하지 않게 되고 유효하지 않다고 판단하여 요청을 거부하게 됩니다. 
 
-[pyJWT](https://pyjwt.readthedocs.io/en/latest/)의 결과 값은 버전에 따라 ```bytes``` 타입<small>(ver. 1.7)</small> 또는 ```str``` 타입<small>(ver. 2.0 이상)</small>입니다.  
+[PyJWT](https://pyjwt.readthedocs.io/en/latest/)의 결과 값은 버전에 따라 ```bytes``` 타입<small>(ver. 1.7)</small> 또는 ```str``` 타입<small>(ver. 2.0 이상)</small>입니다.  
 
 ```py
 access_token = jwt.encode({'email': user.email}, secret_key['SECRET_KEY'], algorithm = ALGORITHM)
