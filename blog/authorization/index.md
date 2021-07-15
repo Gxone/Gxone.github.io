@@ -101,7 +101,7 @@ payload = jwt.decode(access_token, secret_key['SECRET_KEY'], algorithm = ALGORIT
 refresh token은 access token과는 다르게 서버에 저장됩니다. access token처럼 클라이언트에 저장되도록 구현할 수 있겠지만 굳이 서버에서 이를 저장하고 관리하는 이유는 유저의 세션에 문제가 발생할 경우 이를 인지하고 통제하기 위함입니다. refresh token을 브라우저에 저장할 경우 서버는 브라우저에 저장되어있는 토큰을 제어할 수 있는 능력이 없어 유저의 토큰이 탈취당하더라도 취할 방법이 없습니다. 그렇기 때문에 refresh token은 서버에서 관리하도록 하여 유저의 토큰이 탈취당했을 때 해당 유저의 refresh token이 만료되도록 해주면 탈취당한 access token을 무효화시켜 공격을 방어할 수 있습니다. 
 
 3. **멀티 디바이스 로그인 및 동시 로그인 관리**    
-동시 로그인을 막기 위해서는 로그인을 할 때 마다 새로 refresh token을 발급하여 redis와 같은 데이터베이스에 ```{user_id : new_refresh_token}```과 같이 저장합니다. 반대로 동시 로그인을 허용하기 위해서는 데이터베이스에 다른 디바이스에서 발급된 refresh token이 있다면 새로 발급하지 않고 이것을 넘겨줍니다. 
+동시 로그인을 막기 위해서는 로그인을 할 때 마다 새로 refresh token을 발급하여 redis와 같은 데이터베이스에 ```{user_id : new_refresh_token}```과 같이 저장합니다. 반대로 동시 로그인을 허용하기 위해서는 데이터베이스에 다른 디바이스에서 발급된 refresh token이 있다면 새로 발급하지 않고 이것을 넘겨주어 동시 로그인이 가능하도록 합니다.  
 
 ## Sliding Session
 쉽게 말하면 사용 중인 access token의 유효 시간을 늘려주는 것을 말하며, 게시물 작성, 결제와 같은 서비스를 이용할 때 도중에 토큰이 만료되는 것을 방지하기 위해 사용합니다. 유저의 액션 여부를 지속적으로 확인하여 JWT의 세션이 만료되기 전 만료 시간을 갱신한 토큰을 다시 서버로부터 받도록 구현할 수 있습니다. 마찬가지로 refresh token의 유효 시간도 늘릴 수도 있습니다. 
