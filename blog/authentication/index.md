@@ -30,8 +30,6 @@ date: "2021-06-27"
 - **일방향 알고리즘** : 복호화가 불가능하여 원래 데이터가 아닌 암호화된 데이터 값을 보여주는 방식. (SHA 등)  
 - **양방향 알고리즘** : 암호화를 수행하고 복호화하였을 때 평문 값으로 원래 데이터를 보여주는 방식. (SEED, ARIA, AES, RSA 등)  
 
-![암호화 알고리즘](https://user-images.githubusercontent.com/26542094/123530948-0f9e3180-d73b-11eb-9e25-7aad910bdc3b.png)
-
 ## 일방향 해시 함수 (one-way hash function)
 ```bash
 >>> import hashlib
