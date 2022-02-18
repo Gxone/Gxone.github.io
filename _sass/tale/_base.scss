@@ -3,6 +3,11 @@
   line-height: 1.8;
 }
 
+::selection {
+  background-color: $code-color;
+  color: $white;
+}
+
 html,
 body {
   color: $default-color;
