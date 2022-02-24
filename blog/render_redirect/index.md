@@ -29,7 +29,7 @@ def index(request):
     body = template.render(context, request)
     return http.HttpResponse(body, content_type=None)
 ```
-과거 템플릿에 context를 넘겨주기 위해서는 위와 같이 작성해야 했습니다. 하지만 ```render()```를 사용하여 더 간결하게 표현할 수 있습니다.
+과거엔 템플릿에 context를 넘겨주기 위해서는 위와 같이 작성해야 했지만, ```render()```를 사용하여 더 간결하게 표현할 수 있습니다.
 ```py
 from django.shortcuts import render
 
@@ -54,7 +54,7 @@ from django.http import HttpResponseRedirect
 def index(request):
     return HttpResponseRedirect(reverse('blog:detail'))
 ```
-위와 같이 URL name을 사용하는 경우에는 ```reverse()``` 함수를 호출해야 했지만, ```redirect()```는 내부적으로 ```reverse()``` 함수를 호출하여 굳이 감싸줄 필요가 없고 더욱 간단히 표현할 수 있습니다. 하지만 GET 파라미터를 사용해야 하는 경우에는 ```reverse()``` 함수를 호출해주어야 합니다.
+위와 같이 URL name을 사용하는 경우에는 ```reverse()``` 함수를 호출해야 했지만, ```redirect()```는 내부적으로 ```reverse()``` 함수를 호출하여 굳이 감싸줄 필요가 없고 더욱 간단히 표현할 수 있습니다. 하지만 GET 파라미터를 사용해야 하는 경우에는 URL 표현을 위해 ```reverse()``` 함수를 호출해주어야 합니다.
 ```py
 def my_view(request):
     ...
