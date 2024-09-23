@@ -39,7 +39,7 @@ Django에서 datetime 객체를 생성하는 패키지는 두 가지가 있는�
 - Django의 utils 모듈인 timezone
     - TIME_ZONE 값에 맞게 ``datetime()``, ``date()`` 객체를 생성
 
-실무에서 timezone과 datetime을 혼동하여 사용한 코드를 정리한 적이 있는데, Awrare 객체가 필요한 곳에 Naive 객체를 사용한 곳이 많아 이런 곳을 모두 찾아내어 Aware 객체로 수정한 적이 있습니다. DatetimeField에는 Aware(UTC)로 저장되기 때문에 수동으로 업데이트하는 경우는 ``timezone.now()`` 사용하고 Aware 객체이더라도 문맥에 따라 UTC, 한국 시간대를 지정합니다. 예를 들어, 데이터베이스에 저장된 Aware 객체를 템플릿에 보여줄 때는 알아서 local time으로 변환되어 보이지만 csv 다운로드 등에서 데이터베이스의 time 객체를 보여줘야 할 경우에는 UTC → localtime으로 바꾸기 위해 ``timezone.localtime()``을 사용해야 합니다.
+실무에서 timezone과 datetime을 혼동하여 사용한 코드를 정리한 적이 있는데, Aware 객체가 필요한 곳에 Naive 객체를 사용한 곳이 많아 이런 곳을 모두 찾아내어 Aware 객체로 수정한 적이 있습니다. DatetimeField에는 Aware(UTC)로 저장되기 때문에 수동으로 업데이트하는 경우는 ``timezone.now()`` 사용하고 Aware 객체이더라도 문맥에 따라 UTC, 한국 시간대를 지정합니다. 예를 들어, 데이터베이스에 저장된 Aware 객체를 템플릿에 보여줄 때는 알아서 local time으로 변환되어 보이지만 csv 다운로드 등에서 데이터베이스의 time 객체를 보여줘야 할 경우에는 UTC → localtime으로 바꾸기 위해 ``timezone.localtime()``을 사용해야 합니다.
 ```py
 timezone.now() # Aware (UTC) 결과: datetime.datetime(2021, 8, 28, 3, 31, 26, 818455, tzinfo=<UTC>)
 
